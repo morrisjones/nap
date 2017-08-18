@@ -1,0 +1,2595 @@
+Number of games: 1
+Sections in the event:
+Section A:
+
+
+Seat: 5N
+{
+    "score_unscaled": 148,
+    "score_carrover": 0,
+    "rank": [
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 1,
+            "section_rank_high": 0,
+            "rank": 1,
+            "overall_rank_low": 4,
+            "qual_flag": 1
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 1,
+            "section_rank_high": 0,
+            "rank": 1,
+            "overall_rank_low": 3,
+            "qual_flag": 1
+        }
+    ],
+    "score_final": 148,
+    "score_session": 148,
+    "nboards": 24,
+    "eligibility": 0,
+    "score_handicap": 0,
+    "pct": 61.67,
+    "player": [
+        {
+            "city": "Northridge",
+            "pnum": "P554028",
+            "mp_total": 2052,
+            "country": "US",
+            "acbl_rank_letter": "J",
+            "award": {
+                "current": [
+                    [
+                        1.03,
+                        "R",
+                        "SA",
+                        1
+                    ],
+                    [
+                        1.03,
+                        "B",
+                        "SA",
+                        1
+                    ]
+                ],
+                "total": [
+                    [
+                        1.03,
+                        "R",
+                        "SA",
+                        1
+                    ],
+                    [
+                        1.03,
+                        "B",
+                        "SA",
+                        1
+                    ]
+                ],
+                "previous": []
+            },
+            "lname": "Maki",
+            "state": "CA",
+            "team_wins": 0,
+            "fname": "Theodore",
+            "acbl_rank": "Gold Life Master"
+        },
+        {
+            "city": "Castaic",
+            "pnum": "R658327",
+            "mp_total": 1380,
+            "country": "US",
+            "acbl_rank_letter": "I",
+            "award": {
+                "current": [
+                    [
+                        1.03,
+                        "R",
+                        "SA",
+                        1
+                    ],
+                    [
+                        1.03,
+                        "B",
+                        "SA",
+                        1
+                    ]
+                ],
+                "total": [
+                    [
+                        1.03,
+                        "R",
+                        "SA",
+                        1
+                    ],
+                    [
+                        1.03,
+                        "B",
+                        "SA",
+                        1
+                    ]
+                ],
+                "previous": []
+            },
+            "lname": "Johnson",
+            "state": "CA",
+            "team_wins": 0,
+            "fname": "Lamonte",
+            "acbl_rank": "Silver Life Master"
+        }
+    ],
+    "score_adjustment": 0,
+    "award": {
+        "current": [
+            [
+                1.03,
+                "R",
+                "SA",
+                1
+            ],
+            [
+                1.03,
+                "B",
+                "SA",
+                1
+            ]
+        ],
+        "total": [
+            [
+                1.03,
+                "R",
+                "SA",
+                1
+            ],
+            [
+                1.03,
+                "B",
+                "SA",
+                1
+            ]
+        ],
+        "previous": []
+    },
+    "strat_num": 2,
+    "mp_average": 1716
+}
+
+
+Seat: 1E
+{
+    "score_unscaled": 99,
+    "score_carrover": 0,
+    "rank": [
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 7,
+            "overall_rank_low": 0,
+            "qual_flag": 0
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 6,
+            "overall_rank_low": 0,
+            "qual_flag": 6
+        }
+    ],
+    "score_final": 108,
+    "score_session": 108,
+    "score_handicap": 0,
+    "eligibility": 0,
+    "pct": 45,
+    "player": [
+        {
+            "city": "Santa Clarita",
+            "pnum": "6789595",
+            "mp_total": 94,
+            "country": "US",
+            "acbl_rank_letter": "C",
+            "team_wins": 0,
+            "lname": "Benson",
+            "state": "CA",
+            "fname": "Melisse",
+            "acbl_rank": "Sectional Master"
+        },
+        {
+            "city": "Newhall",
+            "pnum": "K070588",
+            "mp_total": 939,
+            "country": "US",
+            "acbl_rank_letter": "H",
+            "team_wins": 0,
+            "lname": "Ashbacher",
+            "state": "CA",
+            "fname": "Carol",
+            "acbl_rank": "Bronze Life Master"
+        }
+    ],
+    "score_adjustment": 0,
+    "nboards": 22,
+    "strat_num": 2,
+    "mp_average": 517
+}
+
+
+Seat: 3N
+{
+    "score_unscaled": 102.5,
+    "score_carrover": 0,
+    "rank": [
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 11,
+            "overall_rank_low": 0,
+            "qual_flag": 0
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 10,
+            "overall_rank_low": 0,
+            "qual_flag": 0
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 5,
+            "overall_rank_low": 0,
+            "qual_flag": 0
+        }
+    ],
+    "score_final": 102.5,
+    "score_session": 102.5,
+    "score_handicap": 0,
+    "eligibility": 0,
+    "pct": 42.71,
+    "player": [
+        {
+            "city": "Valencia",
+            "pnum": "7553935",
+            "mp_total": 42,
+            "country": "US",
+            "acbl_rank_letter": "B",
+            "team_wins": 0,
+            "lname": "McGreevy",
+            "state": "CA",
+            "fname": "Daniel",
+            "acbl_rank": "Club Master"
+        },
+        {
+            "city": "Valencia",
+            "pnum": "5260205",
+            "mp_total": 21,
+            "country": "US",
+            "acbl_rank_letter": "B",
+            "team_wins": 0,
+            "lname": "Strassner",
+            "state": "CA",
+            "fname": "Susan",
+            "acbl_rank": "Club Master"
+        }
+    ],
+    "score_adjustment": 0,
+    "nboards": 24,
+    "strat_num": 3,
+    "mp_average": 32
+}
+
+
+Seat: 5E
+{
+    "score_unscaled": 147.5,
+    "score_carrover": 0,
+    "rank": [
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 1,
+            "section_rank_high": 0,
+            "rank": 1,
+            "overall_rank_low": 1,
+            "qual_flag": 1
+        }
+    ],
+    "score_final": 160.91,
+    "score_session": 160.91,
+    "nboards": 22,
+    "eligibility": 0,
+    "score_handicap": 0,
+    "pct": 67.05,
+    "player": [
+        {
+            "city": "Santa Clarita",
+            "pnum": "Q428794",
+            "mp_total": 2846,
+            "country": "US",
+            "acbl_rank_letter": "K",
+            "award": {
+                "current": [
+                    [
+                        1.03,
+                        "R",
+                        "SA",
+                        1
+                    ],
+                    [
+                        1.03,
+                        "B",
+                        "SA",
+                        1
+                    ]
+                ],
+                "total": [
+                    [
+                        2.07,
+                        "R",
+                        "OA",
+                        11
+                    ],
+                    [
+                        2.06,
+                        "B",
+                        "OA",
+                        11
+                    ]
+                ],
+                "previous": []
+            },
+            "lname": "Hadulla",
+            "state": "CA",
+            "team_wins": 0,
+            "fname": "Roshen",
+            "acbl_rank": "Diamond Life Master"
+        },
+        {
+            "city": "Granada Hills",
+            "pnum": "J495836",
+            "mp_total": 3017,
+            "country": "US",
+            "acbl_rank_letter": "K",
+            "award": {
+                "current": [
+                    [
+                        1.03,
+                        "R",
+                        "SA",
+                        1
+                    ],
+                    [
+                        1.03,
+                        "B",
+                        "SA",
+                        1
+                    ]
+                ],
+                "total": [
+                    [
+                        2.07,
+                        "R",
+                        "OA",
+                        11
+                    ],
+                    [
+                        2.06,
+                        "B",
+                        "OA",
+                        11
+                    ]
+                ],
+                "previous": []
+            },
+            "lname": "Shah",
+            "state": "CA",
+            "team_wins": 0,
+            "fname": "Arif",
+            "acbl_rank": "Diamond Life Master"
+        }
+    ],
+    "score_adjustment": 0,
+    "award": {
+        "current": [
+            [
+                1.03,
+                "R",
+                "SA",
+                1
+            ],
+            [
+                1.03,
+                "B",
+                "SA",
+                1
+            ]
+        ],
+        "total": [
+            [
+                2.07,
+                "R",
+                "OA",
+                11
+            ],
+            [
+                2.06,
+                "B",
+                "OA",
+                11
+            ]
+        ],
+        "previous": []
+    },
+    "strat_num": 1,
+    "mp_average": 2932
+}
+
+
+Seat: 3E
+{
+    "score_unscaled": 96,
+    "score_carrover": 0,
+    "rank": [
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 9,
+            "overall_rank_low": 0,
+            "qual_flag": 0
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 8,
+            "overall_rank_low": 0,
+            "qual_flag": 0
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 6,
+            "overall_rank_low": 0,
+            "qual_flag": 0
+        }
+    ],
+    "score_final": 104.73,
+    "score_session": 104.73,
+    "score_handicap": 0,
+    "eligibility": 0,
+    "pct": 43.64,
+    "player": [
+        {
+            "city": "Santa Clarita",
+            "pnum": "",
+            "mp_total": 0,
+            "country": "  ",
+            "acbl_rank_letter": " ",
+            "team_wins": 0,
+            "lname": "Smith",
+            "state": "CA",
+            "fname": "Hilga",
+            "acbl_rank": "Rookie"
+        },
+        {
+            "city": "Canyon Country",
+            "pnum": "",
+            "mp_total": 0,
+            "country": "  ",
+            "acbl_rank_letter": " ",
+            "team_wins": 0,
+            "lname": "Heese",
+            "state": "CA",
+            "fname": "Nancy",
+            "acbl_rank": "Rookie"
+        }
+    ],
+    "score_adjustment": 0,
+    "nboards": 22,
+    "strat_num": 3,
+    "mp_average": 0
+}
+
+
+Seat: 1N
+{
+    "score_unscaled": 118.5,
+    "score_carrover": 0,
+    "rank": [
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 5,
+            "section_rank_high": 0,
+            "rank": 5,
+            "overall_rank_low": 0,
+            "qual_flag": 5
+        }
+    ],
+    "score_final": 118.5,
+    "score_session": 118.5,
+    "nboards": 24,
+    "eligibility": 0,
+    "score_handicap": 0,
+    "pct": 49.38,
+    "player": [
+        {
+            "city": "Newhall",
+            "pnum": "O648355",
+            "mp_total": 1812,
+            "country": "US",
+            "acbl_rank_letter": "J",
+            "award": {
+                "current": [
+                    [
+                        0.21,
+                        "R",
+                        "SA",
+                        1
+                    ],
+                    [
+                        0.2,
+                        "B",
+                        "SA",
+                        1
+                    ]
+                ],
+                "total": [
+                    [
+                        0.21,
+                        "R",
+                        "SA",
+                        1
+                    ],
+                    [
+                        0.2,
+                        "B",
+                        "SA",
+                        1
+                    ]
+                ],
+                "previous": []
+            },
+            "lname": "Rowe",
+            "state": "CA",
+            "team_wins": 0,
+            "fname": "Hansford",
+            "acbl_rank": "Gold Life Master"
+        },
+        {
+            "city": "Sylmar",
+            "pnum": "L521567",
+            "mp_total": 2635,
+            "country": "US",
+            "acbl_rank_letter": "K",
+            "award": {
+                "current": [
+                    [
+                        0.21,
+                        "R",
+                        "SA",
+                        1
+                    ],
+                    [
+                        0.2,
+                        "B",
+                        "SA",
+                        1
+                    ]
+                ],
+                "total": [
+                    [
+                        0.21,
+                        "R",
+                        "SA",
+                        1
+                    ],
+                    [
+                        0.2,
+                        "B",
+                        "SA",
+                        1
+                    ]
+                ],
+                "previous": []
+            },
+            "lname": "Brodek Jr",
+            "state": "CA",
+            "team_wins": 0,
+            "fname": "William",
+            "acbl_rank": "Diamond Life Master"
+        }
+    ],
+    "score_adjustment": 0,
+    "award": {
+        "current": [
+            [
+                0.21,
+                "R",
+                "SA",
+                1
+            ],
+            [
+                0.2,
+                "B",
+                "SA",
+                1
+            ]
+        ],
+        "total": [
+            [
+                0.21,
+                "R",
+                "SA",
+                1
+            ],
+            [
+                0.2,
+                "B",
+                "SA",
+                1
+            ]
+        ],
+        "previous": []
+    },
+    "strat_num": 1,
+    "mp_average": 2224
+}
+
+
+Seat: 7E
+{
+    "score_unscaled": 90,
+    "score_carrover": 0,
+    "rank": [
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 10,
+            "overall_rank_low": 0,
+            "qual_flag": 0
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 9,
+            "overall_rank_low": 0,
+            "qual_flag": 0
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 7,
+            "overall_rank_low": 0,
+            "qual_flag": 0
+        }
+    ],
+    "score_final": 98.18,
+    "score_session": 98.18,
+    "score_handicap": 0,
+    "eligibility": 0,
+    "pct": 40.91,
+    "player": [
+        {
+            "city": "",
+            "pnum": "",
+            "mp_total": 0,
+            "country": "  ",
+            "acbl_rank_letter": " ",
+            "team_wins": 0,
+            "lname": "Wiedner",
+            "state": "CA",
+            "fname": "Burk",
+            "acbl_rank": "Rookie"
+        },
+        {
+            "city": "",
+            "pnum": "",
+            "mp_total": 0,
+            "country": "  ",
+            "acbl_rank_letter": " ",
+            "team_wins": 0,
+            "lname": "Wiedner",
+            "state": "CA",
+            "fname": "Gail",
+            "acbl_rank": "Rookie"
+        }
+    ],
+    "score_adjustment": 0,
+    "nboards": 22,
+    "strat_num": 3,
+    "mp_average": 0
+}
+
+
+Seat: 10N
+{
+    "score_unscaled": 107,
+    "score_carrover": 0,
+    "rank": [
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 10,
+            "overall_rank_low": 0,
+            "qual_flag": 0
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 9,
+            "overall_rank_low": 0,
+            "qual_flag": 0
+        }
+    ],
+    "score_final": 107,
+    "score_session": 107,
+    "score_handicap": 0,
+    "eligibility": 0,
+    "pct": 44.58,
+    "player": [
+        {
+            "city": "",
+            "pnum": "J797387",
+            "mp_total": 0,
+            "country": "  ",
+            "acbl_rank_letter": " ",
+            "team_wins": 0,
+            "lname": "Ramspeck",
+            "state": "  ",
+            "fname": "Shirley",
+            "acbl_rank": "Rookie"
+        },
+        {
+            "city": "Sylmar",
+            "pnum": "5588022",
+            "mp_total": 0,
+            "country": "US",
+            "acbl_rank_letter": " ",
+            "team_wins": 0,
+            "lname": "Biangella",
+            "state": "CA",
+            "fname": "Bob",
+            "acbl_rank": "Rookie"
+        }
+    ],
+    "score_adjustment": 0,
+    "nboards": 24,
+    "strat_num": 2,
+    "mp_average": 0
+}
+
+
+Seat: 12E
+{
+    "score_unscaled": 127,
+    "score_carrover": 0,
+    "rank": [
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 4,
+            "section_rank_high": 0,
+            "rank": 4,
+            "overall_rank_low": 6,
+            "qual_flag": 4
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 3,
+            "section_rank_high": 0,
+            "rank": 3,
+            "overall_rank_low": 5,
+            "qual_flag": 3
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 2,
+            "section_rank_high": 0,
+            "rank": 2,
+            "overall_rank_low": 3,
+            "qual_flag": 2
+        }
+    ],
+    "score_final": 138.55,
+    "score_session": 138.55,
+    "nboards": 22,
+    "eligibility": 0,
+    "score_handicap": 0,
+    "pct": 57.73,
+    "player": [
+        {
+            "city": "Santa Clarita",
+            "pnum": "9233660",
+            "mp_total": 8,
+            "country": "US",
+            "acbl_rank_letter": "A",
+            "award": {
+                "current": [
+                    [
+                        0.36,
+                        "R",
+                        "SA",
+                        1
+                    ],
+                    [
+                        0.36,
+                        "B",
+                        "SA",
+                        1
+                    ]
+                ],
+                "total": [
+                    [
+                        0.49,
+                        "R",
+                        "OA",
+                        11
+                    ],
+                    [
+                        0.49,
+                        "B",
+                        "OA",
+                        11
+                    ]
+                ],
+                "previous": []
+            },
+            "lname": "Lash",
+            "state": "CA",
+            "team_wins": 0,
+            "fname": "Barbara",
+            "acbl_rank": "Junior Master"
+        },
+        {
+            "city": "Valencia",
+            "pnum": "8530076",
+            "mp_total": 48,
+            "country": "US",
+            "acbl_rank_letter": "B",
+            "award": {
+                "current": [
+                    [
+                        0.36,
+                        "R",
+                        "SA",
+                        1
+                    ],
+                    [
+                        0.36,
+                        "B",
+                        "SA",
+                        1
+                    ]
+                ],
+                "total": [
+                    [
+                        0.49,
+                        "R",
+                        "OA",
+                        11
+                    ],
+                    [
+                        0.49,
+                        "B",
+                        "OA",
+                        11
+                    ]
+                ],
+                "previous": []
+            },
+            "lname": "Greenberg",
+            "state": "CA",
+            "team_wins": 0,
+            "fname": "Richard",
+            "acbl_rank": "Club Master"
+        }
+    ],
+    "score_adjustment": 0,
+    "award": {
+        "current": [
+            [
+                0.36,
+                "R",
+                "SA",
+                1
+            ],
+            [
+                0.36,
+                "B",
+                "SA",
+                1
+            ]
+        ],
+        "total": [
+            [
+                0.49,
+                "R",
+                "OA",
+                11
+            ],
+            [
+                0.49,
+                "B",
+                "OA",
+                11
+            ]
+        ],
+        "previous": []
+    },
+    "strat_num": 3,
+    "mp_average": 28
+}
+
+
+Seat: 9N
+{
+    "score_unscaled": 108.5,
+    "score_carrover": 0,
+    "rank": [
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 8,
+            "overall_rank_low": 0,
+            "qual_flag": 0
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 7,
+            "overall_rank_low": 0,
+            "qual_flag": 0
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 3,
+            "overall_rank_low": 0,
+            "qual_flag": 3
+        }
+    ],
+    "score_final": 108.5,
+    "score_session": 108.5,
+    "score_handicap": 0,
+    "eligibility": 0,
+    "pct": 45.21,
+    "player": [
+        {
+            "city": "Valencia",
+            "pnum": "4835891",
+            "mp_total": 5,
+            "country": "US",
+            "acbl_rank_letter": " ",
+            "team_wins": 0,
+            "lname": "Ladd",
+            "state": "CA",
+            "fname": "Jan",
+            "acbl_rank": "Rookie"
+        },
+        {
+            "city": "Valencia",
+            "pnum": "4835603",
+            "mp_total": 3,
+            "country": "US",
+            "acbl_rank_letter": " ",
+            "team_wins": 0,
+            "lname": "Stock",
+            "state": "CA",
+            "fname": "Tomoko",
+            "acbl_rank": "Rookie"
+        }
+    ],
+    "score_adjustment": 0,
+    "nboards": 24,
+    "strat_num": 3,
+    "mp_average": 4
+}
+
+
+Seat: 7N
+{
+    "score_unscaled": 112.5,
+    "score_carrover": 0,
+    "rank": [
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 7,
+            "overall_rank_low": 0,
+            "qual_flag": 0
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 6,
+            "overall_rank_low": 0,
+            "qual_flag": 0
+        }
+    ],
+    "score_final": 112.5,
+    "score_session": 112.5,
+    "score_handicap": 0,
+    "eligibility": 0,
+    "pct": 46.88,
+    "player": [
+        {
+            "city": "Valencia",
+            "pnum": "5406455",
+            "mp_total": 237,
+            "country": "US",
+            "acbl_rank_letter": "D",
+            "team_wins": 0,
+            "lname": "Provost",
+            "state": "CA",
+            "fname": "Carol",
+            "acbl_rank": "Regional Master"
+        },
+        {
+            "city": "",
+            "pnum": "M649362",
+            "mp_total": 4,
+            "country": "  ",
+            "acbl_rank_letter": " ",
+            "team_wins": 0,
+            "lname": "Dinehart",
+            "state": "  ",
+            "fname": "Viviane",
+            "acbl_rank": "Rookie"
+        }
+    ],
+    "score_adjustment": 0,
+    "nboards": 24,
+    "strat_num": 2,
+    "mp_average": 121
+}
+
+
+Seat: 9E
+{
+    "score_unscaled": 64,
+    "score_carrover": 0,
+    "rank": [
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 12,
+            "overall_rank_low": 0,
+            "qual_flag": 0
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 11,
+            "overall_rank_low": 0,
+            "qual_flag": 0
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 9,
+            "overall_rank_low": 0,
+            "qual_flag": 0
+        }
+    ],
+    "score_final": 69.82,
+    "score_session": 69.82,
+    "score_handicap": 0,
+    "eligibility": 0,
+    "pct": 29.09,
+    "player": [
+        {
+            "city": "Valencia",
+            "pnum": "9222766",
+            "mp_total": 11,
+            "country": "US",
+            "acbl_rank_letter": "A",
+            "team_wins": 0,
+            "lname": "Merjan",
+            "state": "CA",
+            "fname": "Harriet",
+            "acbl_rank": "Junior Master"
+        },
+        {
+            "city": "Valencia",
+            "pnum": "9222774",
+            "mp_total": 7,
+            "country": "US",
+            "acbl_rank_letter": "A",
+            "team_wins": 0,
+            "lname": "Merjan",
+            "state": "CA",
+            "fname": "Joseph",
+            "acbl_rank": "Junior Master"
+        }
+    ],
+    "score_adjustment": 0,
+    "nboards": 22,
+    "strat_num": 3,
+    "mp_average": 9
+}
+
+
+Seat: 10E
+{
+    "score_unscaled": 89.5,
+    "score_carrover": 0,
+    "rank": [
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 11,
+            "overall_rank_low": 0,
+            "qual_flag": 0
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 10,
+            "overall_rank_low": 0,
+            "qual_flag": 0
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 8,
+            "overall_rank_low": 0,
+            "qual_flag": 0
+        }
+    ],
+    "score_final": 97.64,
+    "score_session": 97.64,
+    "score_handicap": 0,
+    "eligibility": 0,
+    "pct": 40.68,
+    "player": [
+        {
+            "city": "Stevenson Ranch",
+            "pnum": "9237305",
+            "mp_total": 6,
+            "country": "US",
+            "acbl_rank_letter": "A",
+            "team_wins": 0,
+            "lname": "Kascoutas",
+            "state": "CA",
+            "fname": "Judy",
+            "acbl_rank": "Junior Master"
+        },
+        {
+            "city": "Canyon Country",
+            "pnum": "7312024",
+            "mp_total": 0,
+            "country": "US",
+            "acbl_rank_letter": " ",
+            "team_wins": 0,
+            "lname": "Brown",
+            "state": "CA",
+            "fname": "Joan",
+            "acbl_rank": "Rookie"
+        }
+    ],
+    "score_adjustment": 0,
+    "nboards": 22,
+    "strat_num": 3,
+    "mp_average": 3
+}
+
+
+Seat: 4N
+{
+    "score_unscaled": 142.5,
+    "score_carrover": 0,
+    "rank": [
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 2,
+            "section_rank_high": 0,
+            "rank": 2,
+            "overall_rank_low": 5,
+            "qual_flag": 2
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 2,
+            "section_rank_high": 0,
+            "rank": 2,
+            "overall_rank_low": 4,
+            "qual_flag": 2
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 1,
+            "section_rank_high": 0,
+            "rank": 1,
+            "overall_rank_low": 2,
+            "qual_flag": 1
+        }
+    ],
+    "score_final": 142.5,
+    "score_session": 142.5,
+    "nboards": 24,
+    "eligibility": 0,
+    "score_handicap": 0,
+    "pct": 59.38,
+    "player": [
+        {
+            "city": "Northridge",
+            "pnum": "1623753",
+            "mp_total": 297,
+            "country": "US",
+            "acbl_rank_letter": "E",
+            "award": {
+                "current": [
+                    [
+                        0.72,
+                        "R",
+                        "SA",
+                        1
+                    ],
+                    [
+                        0.72,
+                        "B",
+                        "SA",
+                        1
+                    ]
+                ],
+                "total": [
+                    [
+                        0.72,
+                        "R",
+                        "SA",
+                        1
+                    ],
+                    [
+                        0.72,
+                        "B",
+                        "SA",
+                        1
+                    ]
+                ],
+                "previous": []
+            },
+            "lname": "McLeod",
+            "state": "CA",
+            "team_wins": 0,
+            "fname": "Beverly",
+            "acbl_rank": "NABC Master"
+        },
+        {
+            "city": "Northridge",
+            "pnum": "3591883",
+            "mp_total": 91,
+            "country": "US",
+            "acbl_rank_letter": "C",
+            "award": {
+                "current": [
+                    [
+                        0.72,
+                        "R",
+                        "SA",
+                        1
+                    ],
+                    [
+                        0.72,
+                        "B",
+                        "SA",
+                        1
+                    ]
+                ],
+                "total": [
+                    [
+                        0.72,
+                        "R",
+                        "SA",
+                        1
+                    ],
+                    [
+                        0.72,
+                        "B",
+                        "SA",
+                        1
+                    ]
+                ],
+                "previous": []
+            },
+            "lname": "Vacca",
+            "state": "CA",
+            "team_wins": 0,
+            "fname": "John",
+            "acbl_rank": "Sectional Master"
+        }
+    ],
+    "score_adjustment": 0,
+    "award": {
+        "current": [
+            [
+                0.72,
+                "R",
+                "SA",
+                1
+            ],
+            [
+                0.72,
+                "B",
+                "SA",
+                1
+            ]
+        ],
+        "total": [
+            [
+                0.72,
+                "R",
+                "SA",
+                1
+            ],
+            [
+                0.72,
+                "B",
+                "SA",
+                1
+            ]
+        ],
+        "previous": []
+    },
+    "strat_num": 3,
+    "mp_average": 194
+}
+
+
+Seat: 2E
+{
+    "score_unscaled": 142.5,
+    "score_carrover": 0,
+    "rank": [
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 2,
+            "section_rank_high": 0,
+            "rank": 2,
+            "overall_rank_low": 2,
+            "qual_flag": 2
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 1,
+            "section_rank_high": 0,
+            "rank": 1,
+            "overall_rank_low": 1,
+            "qual_flag": 1
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 1,
+            "section_rank_high": 0,
+            "rank": 1,
+            "overall_rank_low": 1,
+            "qual_flag": 1
+        }
+    ],
+    "score_final": 155.45,
+    "score_session": 155.45,
+    "nboards": 22,
+    "eligibility": 0,
+    "score_handicap": 0,
+    "pct": 64.77,
+    "player": [
+        {
+            "city": "Valencia",
+            "pnum": "5191645",
+            "mp_total": 37,
+            "country": "US",
+            "acbl_rank_letter": "B",
+            "award": {
+                "current": [
+                    [
+                        0.72,
+                        "R",
+                        "SA",
+                        1
+                    ],
+                    [
+                        0.72,
+                        "B",
+                        "SA",
+                        1
+                    ]
+                ],
+                "total": [
+                    [
+                        1.55,
+                        "R",
+                        "OA",
+                        11
+                    ],
+                    [
+                        1.55,
+                        "B",
+                        "OA",
+                        11
+                    ]
+                ],
+                "previous": []
+            },
+            "lname": "Ho",
+            "state": "CA",
+            "team_wins": 0,
+            "fname": "May",
+            "acbl_rank": "Club Master"
+        },
+        {
+            "city": "Newhall",
+            "pnum": "5188598",
+            "mp_total": 45,
+            "country": "US",
+            "acbl_rank_letter": "B",
+            "award": {
+                "current": [
+                    [
+                        0.72,
+                        "R",
+                        "SA",
+                        1
+                    ],
+                    [
+                        0.72,
+                        "B",
+                        "SA",
+                        1
+                    ]
+                ],
+                "total": [
+                    [
+                        1.55,
+                        "R",
+                        "OA",
+                        11
+                    ],
+                    [
+                        1.55,
+                        "B",
+                        "OA",
+                        11
+                    ]
+                ],
+                "previous": []
+            },
+            "lname": "Gipson",
+            "state": "CA",
+            "team_wins": 0,
+            "fname": "Gay",
+            "acbl_rank": "Club Master"
+        }
+    ],
+    "score_adjustment": 0,
+    "award": {
+        "current": [
+            [
+                0.72,
+                "R",
+                "SA",
+                1
+            ],
+            [
+                0.72,
+                "B",
+                "SA",
+                1
+            ]
+        ],
+        "total": [
+            [
+                1.55,
+                "R",
+                "OA",
+                11
+            ],
+            [
+                1.55,
+                "B",
+                "OA",
+                11
+            ]
+        ],
+        "previous": []
+    },
+    "strat_num": 3,
+    "mp_average": 41
+}
+
+
+Seat: 2N
+{
+    "score_unscaled": 113,
+    "score_carrover": 0,
+    "rank": [
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 6,
+            "overall_rank_low": 0,
+            "qual_flag": 6
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 5,
+            "overall_rank_low": 0,
+            "qual_flag": 5
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 2,
+            "section_rank_high": 0,
+            "rank": 2,
+            "overall_rank_low": 5,
+            "qual_flag": 2
+        }
+    ],
+    "score_final": 113,
+    "score_session": 113,
+    "nboards": 24,
+    "eligibility": 0,
+    "score_handicap": 0,
+    "pct": 47.08,
+    "player": [
+        {
+            "city": "Valencia",
+            "pnum": "6103421",
+            "mp_total": 17,
+            "country": "US",
+            "acbl_rank_letter": "A",
+            "award": {
+                "current": [
+                    [
+                        0.25,
+                        "R",
+                        "SC",
+                        3
+                    ],
+                    [
+                        0.24,
+                        "B",
+                        "SC",
+                        3
+                    ]
+                ],
+                "total": [
+                    [
+                        0.25,
+                        "R",
+                        "SC",
+                        3
+                    ],
+                    [
+                        0.25,
+                        "B",
+                        "OC",
+                        13
+                    ]
+                ],
+                "previous": []
+            },
+            "lname": "Morton",
+            "state": "CA",
+            "team_wins": 0,
+            "fname": "Carol",
+            "acbl_rank": "Junior Master"
+        },
+        {
+            "city": "Valencia",
+            "pnum": "7233019",
+            "mp_total": 2,
+            "country": "US",
+            "acbl_rank_letter": " ",
+            "award": {
+                "current": [
+                    [
+                        0.25,
+                        "R",
+                        "SC",
+                        3
+                    ],
+                    [
+                        0.24,
+                        "B",
+                        "SC",
+                        3
+                    ]
+                ],
+                "total": [
+                    [
+                        0.25,
+                        "R",
+                        "SC",
+                        3
+                    ],
+                    [
+                        0.25,
+                        "B",
+                        "OC",
+                        13
+                    ]
+                ],
+                "previous": []
+            },
+            "lname": "Voss",
+            "state": "CA",
+            "team_wins": 0,
+            "fname": "Barbara",
+            "acbl_rank": "Rookie"
+        }
+    ],
+    "score_adjustment": 0,
+    "award": {
+        "current": [
+            [
+                0.25,
+                "R",
+                "SC",
+                3
+            ],
+            [
+                0.24,
+                "B",
+                "SC",
+                3
+            ]
+        ],
+        "total": [
+            [
+                0.25,
+                "R",
+                "SC",
+                3
+            ],
+            [
+                0.25,
+                "B",
+                "OC",
+                13
+            ]
+        ],
+        "previous": []
+    },
+    "strat_num": 3,
+    "mp_average": 10
+}
+
+
+Seat: 4E
+{
+    "score_unscaled": 139.5,
+    "score_carrover": 0,
+    "rank": [
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 3,
+            "section_rank_high": 0,
+            "rank": 3,
+            "overall_rank_low": 3,
+            "qual_flag": 3
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 2,
+            "section_rank_high": 0,
+            "rank": 2,
+            "overall_rank_low": 2,
+            "qual_flag": 2
+        }
+    ],
+    "score_final": 152.18,
+    "score_session": 152.18,
+    "nboards": 22,
+    "eligibility": 0,
+    "score_handicap": 0,
+    "pct": 63.41,
+    "player": [
+        {
+            "city": "Valencia",
+            "pnum": "J777866",
+            "mp_total": 1385,
+            "country": "US",
+            "acbl_rank_letter": "I",
+            "award": {
+                "current": [
+                    [
+                        0.52,
+                        "R",
+                        "SA",
+                        1
+                    ],
+                    [
+                        0.51,
+                        "B",
+                        "SA",
+                        1
+                    ]
+                ],
+                "total": [
+                    [
+                        1.16,
+                        "R",
+                        "OA",
+                        11
+                    ],
+                    [
+                        1.16,
+                        "B",
+                        "OA",
+                        11
+                    ]
+                ],
+                "previous": []
+            },
+            "lname": "Olivares",
+            "state": "CA",
+            "team_wins": 0,
+            "fname": "Paula",
+            "acbl_rank": "Silver Life Master"
+        },
+        {
+            "city": "Canyon Country",
+            "pnum": "7849214",
+            "mp_total": 627,
+            "country": "US",
+            "acbl_rank_letter": "E",
+            "award": {
+                "current": [
+                    [
+                        0.52,
+                        "R",
+                        "SA",
+                        1
+                    ],
+                    [
+                        0.51,
+                        "B",
+                        "SA",
+                        1
+                    ]
+                ],
+                "total": [
+                    [
+                        1.16,
+                        "R",
+                        "OA",
+                        11
+                    ],
+                    [
+                        1.16,
+                        "B",
+                        "OA",
+                        11
+                    ]
+                ],
+                "previous": []
+            },
+            "lname": "Kubo",
+            "state": "CA",
+            "team_wins": 0,
+            "fname": "Kristi",
+            "acbl_rank": "NABC Master"
+        }
+    ],
+    "score_adjustment": 0,
+    "award": {
+        "current": [
+            [
+                0.52,
+                "R",
+                "SA",
+                1
+            ],
+            [
+                0.51,
+                "B",
+                "SA",
+                1
+            ]
+        ],
+        "total": [
+            [
+                1.16,
+                "R",
+                "OA",
+                11
+            ],
+            [
+                1.16,
+                "B",
+                "OA",
+                11
+            ]
+        ],
+        "previous": []
+    },
+    "strat_num": 2,
+    "mp_average": 1006
+}
+
+
+Seat: 11E
+{
+    "score_unscaled": 98.5,
+    "score_carrover": 0,
+    "rank": [
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 8,
+            "overall_rank_low": 0,
+            "qual_flag": 0
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 7,
+            "overall_rank_low": 0,
+            "qual_flag": 0
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 5,
+            "overall_rank_low": 0,
+            "qual_flag": 5
+        }
+    ],
+    "score_final": 107.45,
+    "score_session": 107.45,
+    "score_handicap": 0,
+    "eligibility": 0,
+    "pct": 44.77,
+    "player": [
+        {
+            "city": "Valencia",
+            "pnum": "",
+            "mp_total": 0,
+            "country": "  ",
+            "acbl_rank_letter": " ",
+            "team_wins": 0,
+            "lname": "Jonas",
+            "state": "CA",
+            "fname": "Sharrlee",
+            "acbl_rank": "Rookie"
+        },
+        {
+            "city": "Valencia",
+            "pnum": "1108646",
+            "mp_total": 76,
+            "country": "US",
+            "acbl_rank_letter": "C",
+            "team_wins": 0,
+            "lname": "Takemoto",
+            "state": "CA",
+            "fname": "Margaret",
+            "acbl_rank": "Sectional Master"
+        }
+    ],
+    "score_adjustment": 0,
+    "nboards": 22,
+    "strat_num": 3,
+    "mp_average": 38
+}
+
+
+Seat: 8N
+{
+    "score_unscaled": 126.5,
+    "score_carrover": 0,
+    "rank": [
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 4,
+            "section_rank_high": 0,
+            "rank": 4,
+            "overall_rank_low": 0,
+            "qual_flag": 4
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 4,
+            "section_rank_high": 0,
+            "rank": 4,
+            "overall_rank_low": 0,
+            "qual_flag": 4
+        }
+    ],
+    "score_final": 126.5,
+    "score_session": 126.5,
+    "nboards": 24,
+    "eligibility": 0,
+    "score_handicap": 0,
+    "pct": 52.71,
+    "player": [
+        {
+            "city": "Valencia",
+            "pnum": "K930951",
+            "mp_total": 965,
+            "country": "US",
+            "acbl_rank_letter": "H",
+            "award": {
+                "current": [
+                    [
+                        0.36,
+                        "R",
+                        "SA",
+                        1
+                    ],
+                    [
+                        0.36,
+                        "B",
+                        "SA",
+                        1
+                    ]
+                ],
+                "total": [
+                    [
+                        0.36,
+                        "R",
+                        "SA",
+                        1
+                    ],
+                    [
+                        0.36,
+                        "B",
+                        "SA",
+                        1
+                    ]
+                ],
+                "previous": []
+            },
+            "lname": "Stock",
+            "state": "CA",
+            "team_wins": 0,
+            "fname": "Albert",
+            "acbl_rank": "Bronze Life Master"
+        },
+        {
+            "city": "Valencia",
+            "pnum": "O423345",
+            "mp_total": 932,
+            "country": "US",
+            "acbl_rank_letter": "H",
+            "award": {
+                "current": [
+                    [
+                        0.36,
+                        "R",
+                        "SA",
+                        1
+                    ],
+                    [
+                        0.36,
+                        "B",
+                        "SA",
+                        1
+                    ]
+                ],
+                "total": [
+                    [
+                        0.36,
+                        "R",
+                        "SA",
+                        1
+                    ],
+                    [
+                        0.36,
+                        "B",
+                        "SA",
+                        1
+                    ]
+                ],
+                "previous": []
+            },
+            "lname": "Ladd",
+            "state": "CA",
+            "team_wins": 0,
+            "fname": "Roy",
+            "acbl_rank": "Bronze Life Master"
+        }
+    ],
+    "score_adjustment": 0,
+    "award": {
+        "current": [
+            [
+                0.36,
+                "R",
+                "SA",
+                1
+            ],
+            [
+                0.36,
+                "B",
+                "SA",
+                1
+            ]
+        ],
+        "total": [
+            [
+                0.36,
+                "R",
+                "SA",
+                1
+            ],
+            [
+                0.36,
+                "B",
+                "SA",
+                1
+            ]
+        ],
+        "previous": []
+    },
+    "strat_num": 2,
+    "mp_average": 949
+}
+
+
+Seat: 6E
+{
+    "score_unscaled": 126.5,
+    "score_carrover": 0,
+    "rank": [
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 5,
+            "section_rank_high": 0,
+            "rank": 5,
+            "overall_rank_low": 0,
+            "qual_flag": 5
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 4,
+            "section_rank_high": 0,
+            "rank": 4,
+            "overall_rank_low": 6,
+            "qual_flag": 4
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 3,
+            "section_rank_high": 0,
+            "rank": 3,
+            "overall_rank_low": 4,
+            "qual_flag": 3
+        }
+    ],
+    "score_final": 138,
+    "score_session": 138,
+    "nboards": 22,
+    "eligibility": 0,
+    "score_handicap": 0,
+    "pct": 57.5,
+    "player": [
+        {
+            "city": "Stevenson Ranch",
+            "pnum": "8875839",
+            "mp_total": 44,
+            "country": "US",
+            "acbl_rank_letter": "B",
+            "award": {
+                "current": [
+                    [
+                        0.24,
+                        "R",
+                        "SB",
+                        2
+                    ],
+                    [
+                        0.24,
+                        "B",
+                        "SB",
+                        2
+                    ]
+                ],
+                "total": [
+                    [
+                        0.34,
+                        "R",
+                        "OC",
+                        13
+                    ],
+                    [
+                        0.33,
+                        "B",
+                        "OC",
+                        13
+                    ]
+                ],
+                "previous": []
+            },
+            "lname": "Day",
+            "state": "CA",
+            "team_wins": 0,
+            "fname": "Tom",
+            "acbl_rank": "Club Master"
+        },
+        {
+            "city": "Santa Clarita",
+            "pnum": "7759916",
+            "mp_total": 234,
+            "country": "US",
+            "acbl_rank_letter": "E",
+            "award": {
+                "current": [
+                    [
+                        0.24,
+                        "R",
+                        "SB",
+                        2
+                    ],
+                    [
+                        0.24,
+                        "B",
+                        "SB",
+                        2
+                    ]
+                ],
+                "total": [
+                    [
+                        0.34,
+                        "R",
+                        "OC",
+                        13
+                    ],
+                    [
+                        0.33,
+                        "B",
+                        "OC",
+                        13
+                    ]
+                ],
+                "previous": []
+            },
+            "lname": "Moor",
+            "state": "CA",
+            "team_wins": 0,
+            "fname": "Jacqueline",
+            "acbl_rank": "NABC Master"
+        }
+    ],
+    "score_adjustment": 0,
+    "award": {
+        "current": [
+            [
+                0.24,
+                "R",
+                "SB",
+                2
+            ],
+            [
+                0.24,
+                "B",
+                "SB",
+                2
+            ]
+        ],
+        "total": [
+            [
+                0.34,
+                "R",
+                "OC",
+                13
+            ],
+            [
+                0.33,
+                "B",
+                "OC",
+                13
+            ]
+        ],
+        "previous": []
+    },
+    "strat_num": 3,
+    "mp_average": 139
+}
+
+
+Seat: 11N
+{
+    "score_unscaled": 133.5,
+    "score_carrover": 0,
+    "rank": [
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 3,
+            "section_rank_high": 0,
+            "rank": 3,
+            "overall_rank_low": 0,
+            "qual_flag": 3
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 3,
+            "section_rank_high": 0,
+            "rank": 3,
+            "overall_rank_low": 0,
+            "qual_flag": 3
+        }
+    ],
+    "score_final": 133.5,
+    "score_session": 133.5,
+    "nboards": 24,
+    "eligibility": 0,
+    "score_handicap": 0,
+    "pct": 55.63,
+    "player": [
+        {
+            "city": "Valencia",
+            "pnum": "K782243",
+            "mp_total": 542,
+            "country": "US",
+            "acbl_rank_letter": "H",
+            "award": {
+                "current": [
+                    [
+                        0.52,
+                        "R",
+                        "SA",
+                        1
+                    ],
+                    [
+                        0.51,
+                        "B",
+                        "SA",
+                        1
+                    ]
+                ],
+                "total": [
+                    [
+                        0.52,
+                        "R",
+                        "SA",
+                        1
+                    ],
+                    [
+                        0.51,
+                        "B",
+                        "SA",
+                        1
+                    ]
+                ],
+                "previous": []
+            },
+            "lname": "Gilbreath",
+            "state": "CA",
+            "team_wins": 0,
+            "fname": "Vibeke",
+            "acbl_rank": "Bronze Life Master"
+        },
+        {
+            "city": "Sylmar",
+            "pnum": "",
+            "mp_total": 0,
+            "country": "  ",
+            "acbl_rank_letter": " ",
+            "award": {
+                "current": [
+                    [
+                        0.52,
+                        "R",
+                        "SA",
+                        1
+                    ],
+                    [
+                        0.51,
+                        "B",
+                        "SA",
+                        1
+                    ]
+                ],
+                "total": [
+                    [
+                        0.52,
+                        "R",
+                        "SA",
+                        1
+                    ],
+                    [
+                        0.51,
+                        "B",
+                        "SA",
+                        1
+                    ]
+                ],
+                "previous": []
+            },
+            "lname": "Chang",
+            "state": "CA",
+            "team_wins": 0,
+            "fname": "Jeff",
+            "acbl_rank": "Rookie"
+        }
+    ],
+    "score_adjustment": 0,
+    "award": {
+        "current": [
+            [
+                0.52,
+                "R",
+                "SA",
+                1
+            ],
+            [
+                0.51,
+                "B",
+                "SA",
+                1
+            ]
+        ],
+        "total": [
+            [
+                0.52,
+                "R",
+                "SA",
+                1
+            ],
+            [
+                0.51,
+                "B",
+                "SA",
+                1
+            ]
+        ],
+        "previous": []
+    },
+    "strat_num": 2,
+    "mp_average": 271
+}
+
+
+Seat: 6N
+{
+    "score_unscaled": 107.5,
+    "score_carrover": 0,
+    "rank": [
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 9,
+            "overall_rank_low": 0,
+            "qual_flag": 0
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 8,
+            "overall_rank_low": 0,
+            "qual_flag": 0
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 4,
+            "overall_rank_low": 0,
+            "qual_flag": 0
+        }
+    ],
+    "score_final": 107.5,
+    "score_session": 107.5,
+    "score_handicap": 0,
+    "eligibility": 0,
+    "pct": 44.79,
+    "player": [
+        {
+            "city": "Valencia",
+            "pnum": "3533689",
+            "mp_total": 167,
+            "country": "US",
+            "acbl_rank_letter": "D",
+            "team_wins": 0,
+            "lname": "Oschin",
+            "state": "CA",
+            "fname": "Aggi",
+            "acbl_rank": "Regional Master"
+        },
+        {
+            "city": "Valencia",
+            "pnum": "",
+            "mp_total": 4,
+            "country": "  ",
+            "acbl_rank_letter": " ",
+            "team_wins": 0,
+            "lname": "Hoelscher",
+            "state": "CA",
+            "fname": "Sharon",
+            "acbl_rank": "Rookie"
+        }
+    ],
+    "score_adjustment": 0,
+    "nboards": 24,
+    "strat_num": 3,
+    "mp_average": 86
+}
+
+
+Seat: 8E
+{
+    "score_unscaled": 100,
+    "score_carrover": 0,
+    "rank": [
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 6,
+            "overall_rank_low": 0,
+            "qual_flag": 6
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 0,
+            "section_rank_high": 0,
+            "rank": 5,
+            "overall_rank_low": 0,
+            "qual_flag": 5
+        },
+        {
+            "overall_rank_high": 0,
+            "section_rank_low": 4,
+            "section_rank_high": 0,
+            "rank": 4,
+            "overall_rank_low": 0,
+            "qual_flag": 4
+        }
+    ],
+    "score_final": 109.09,
+    "score_session": 109.09,
+    "nboards": 22,
+    "eligibility": 0,
+    "score_handicap": 0,
+    "pct": 45.45,
+    "player": [
+        {
+            "city": "",
+            "pnum": "",
+            "mp_total": 3,
+            "country": "  ",
+            "acbl_rank_letter": " ",
+            "award": {
+                "current": [
+                    [
+                        0.16,
+                        "R",
+                        "SC",
+                        3
+                    ],
+                    [
+                        0.15,
+                        "B",
+                        "SC",
+                        3
+                    ]
+                ],
+                "total": [
+                    [
+                        0.16,
+                        "R",
+                        "SC",
+                        3
+                    ],
+                    [
+                        0.15,
+                        "B",
+                        "SC",
+                        3
+                    ]
+                ],
+                "previous": []
+            },
+            "lname": "Khayat",
+            "state": "  ",
+            "team_wins": 0,
+            "fname": "Sam",
+            "acbl_rank": "Rookie"
+        },
+        {
+            "city": "",
+            "pnum": "",
+            "mp_total": 5,
+            "country": "  ",
+            "acbl_rank_letter": " ",
+            "award": {
+                "current": [
+                    [
+                        0.16,
+                        "R",
+                        "SC",
+                        3
+                    ],
+                    [
+                        0.15,
+                        "B",
+                        "SC",
+                        3
+                    ]
+                ],
+                "total": [
+                    [
+                        0.16,
+                        "R",
+                        "SC",
+                        3
+                    ],
+                    [
+                        0.15,
+                        "B",
+                        "SC",
+                        3
+                    ]
+                ],
+                "previous": []
+            },
+            "lname": "Brothers",
+            "state": "  ",
+            "team_wins": 0,
+            "fname": "Bob",
+            "acbl_rank": "Rookie"
+        }
+    ],
+    "score_adjustment": 0,
+    "award": {
+        "current": [
+            [
+                0.16,
+                "R",
+                "SC",
+                3
+            ],
+            [
+                0.15,
+                "B",
+                "SC",
+                3
+            ]
+        ],
+        "total": [
+            [
+                0.16,
+                "R",
+                "SC",
+                3
+            ],
+            [
+                0.15,
+                "B",
+                "SC",
+                3
+            ]
+        ],
+        "previous": []
+    },
+    "strat_num": 3,
+    "mp_average": 4
+}
