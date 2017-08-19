@@ -8,9 +8,9 @@ class Section(object):
     self.letter = letter
     self.section_dict = section_dict
     self.players = []
-    entries = self.section_dict['entry']
-    for seat in entries.keys():
-      entry = entries[seat]
+    self.entries = self.section_dict['entry']
+    for seat in self.entries.keys():
+      entry = self.entries[seat]
       strat_num = entry['strat_num']
       players = entry['player']
       ranks = entry['rank']
@@ -23,3 +23,5 @@ class Section(object):
           player.set_qual('C',ranks[2]['qual_flag'] > 0)
         self.players.append(player)
 
+  def table_count(self):
+    return len(self.entries.keys()) / 2.0

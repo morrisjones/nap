@@ -29,3 +29,8 @@ class Gamefile(object):
   def get_game_date(self):
     return self.events[0].details[0].date
 
+  def table_count(self):
+    entries = 0.0
+    for section in self.events[0].details[0].sections:
+      entries  += section.table_count()
+    return entries

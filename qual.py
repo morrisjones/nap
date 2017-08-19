@@ -32,7 +32,7 @@ if __name__ == "__main__":
   if args.clubs:
     for game in games:
       club = game.get_club()
-      print "%s\t%s\t%s" % (club.number, club.name, game.get_game_date())
+      print "%s\t%s\t%s\t%s" % (club.number, club.name, game.get_game_date(), game.table_count())
 
   sys.exit(0)
 
