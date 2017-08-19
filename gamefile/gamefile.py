@@ -2,7 +2,6 @@
 
 import json
 from event import Event
-from club import Club
 
 class Gamefile(object):
   """Represents a gamefile imported using ACBLgamedump.pm from JSON

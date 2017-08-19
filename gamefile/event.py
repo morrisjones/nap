@@ -1,7 +1,5 @@
 #!/usr/bin/python
 
-from player import Player
-from club import Club
 from event_details import EventDetails
 
 class Event(object):

@@ -1,9 +1,7 @@
 #!/usr/bin/python
 
 import sys
-from gamefile import *
-from event import *
-from player import *
+from gamefile import Gamefile
 
 # Array of all read game files
 games = []
