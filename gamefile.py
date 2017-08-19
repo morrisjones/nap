@@ -1,7 +1,8 @@
 #!/usr/bin/python
 
 import json
-from event import *
+from event import Event
+from club import Club
 
 class Gamefile(object):
   """Represents a gamefile imported using ACBLgamedump.pm from JSON
@@ -22,4 +23,10 @@ class Gamefile(object):
 
   def pretty(self):
     print json.dumps(self.gamefiledict, sort_keys=True, indent=2, separators=(',', ': '))
+
+  def get_club(self):
+    return self.events[0].details[0].club
+
+  def get_game_date(self):
+    return self.events[0].details[0].date
 

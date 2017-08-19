@@ -1,6 +1,8 @@
 #!/usr/bin/python
 
 from player import Player
+from club import Club
+from event_details import EventDetails
 
 class Event(object):
 
@@ -12,46 +14,3 @@ class Event(object):
     self.details = []
     for e in event_dict['event']:
       self.details.append(EventDetails(e))
-
-
-
-class EventDetails(object):
-
-  def __init__(self,details_dict):
-    self.details_dict = details_dict
-    self.club = details_dict['club']
-    self.club_num = details_dict['club_num']
-    self.date = details_dict['date']
-    self.sections = []
-    for k in details_dict['section'].keys():
-      self.sections.append(Section(k,details_dict['section'][k]))
-
-
-
-class Section(object):
-
-  def __init__(self,letter,section_dict):
-    self.letter = letter
-    self.section_dict = section_dict
-    self.players = []
-    entries = self.section_dict['entry']
-    for seat in entries.keys():
-      entry = entries[seat]
-      strat_num = entry['strat_num']
-      players = entry['player']
-      ranks = entry['rank']
-      for p in players:
-        player = Player(p['lname'],p['fname'],p['pnum'])
-        player.set_qual('A',ranks[0]['qual_flag'] > 0)
-        if 1 < strat_num:
-          player.set_qual('B',ranks[1]['qual_flag'] > 0)
-        if 2 < strat_num:
-          player.set_qual('C',ranks[2]['qual_flag'] > 0)
-        self.players.append(player)
-
-class Club(object):
-
-  def __init__(self,name,number):
-    self.name = name
-    self.number = number
-
