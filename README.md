@@ -6,19 +6,23 @@ TODO list:
 
 * Generate Q report that shows players and all qualified flights
 * Generate a duplicates report
-* Add system calls that will generate the JSON on the fly from a tree
-  of game files using ACBLgamedump.pl
 
-usage: qual.py [-h] [-c] [-f {a,b,c}] [-v] [input [input ...]]
+HELP output, ./qual.py -h
 
-Create NAP qualifer list
+    usage: qual.py [-h] [-t TREE] [-c] [-f {a,b,c}] [-v] [-V]
+                   [gamefiles [gamefiles ...]]
 
-positional arguments:
-  input                 gamefile json file name, else stdin
+    Create NAP qualifer list
 
-optional arguments:
-  -h, --help            show this help message and exit
-  -c, --clubs           Show info for clubs and games
-  -f {a,b,c}, --flight {a,b,c}
-                        Select A B or C to report qualifying players
-  -v, --verbose         Include more verbose information in reports
+    positional arguments:
+      gamefiles             gamefile file name(s)
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      -t TREE, --tree TREE  top directory of a tree of ACBLScore game files
+                            (default=./gamefiles)
+      -c, --clubs           Show info for clubs and games
+      -f {a,b,c}, --flight {a,b,c}
+                            Select A B or C to report qualifying players
+      -v, --verbose         Include more verbose information in reports
+      -V, --version         show program's version number and exit

@@ -40,9 +40,9 @@ if __name__ == "__main__":
 
   parser = argparse.ArgumentParser(description='Create NAP qualifer list')
   parser.add_argument('gamefiles', type=str, 
-      help="gamefile json file name, else stdin", nargs='*')
-  parser.add_argument('-t', '--tree', 
-      help="top directory of a tree of ACBLScore game files")
+      help="gamefile file name(s)", nargs='*')
+  parser.add_argument('-t', '--tree', default="./gamefiles",
+      help="top directory of a tree of ACBLScore game files (default=./gamefiles)")
   parser.add_argument('-c', '--clubs', action="store_true", 
       help="Show info for clubs and games")
   parser.add_argument('-f', '--flight', action="append", default=[], 
@@ -60,7 +60,6 @@ if __name__ == "__main__":
     for filename in args.gamefiles:
       extract_json(filename)
   else:
-    gamefile_tree = "./gamefiles"
     if args.tree:
       gamefile_tree = args.tree
 
