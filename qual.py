@@ -94,7 +94,7 @@ if __name__ == "__main__":
 
   if args.summary:
     print "\nSummary of NAP Qualifiers\n"
-    fmt = "{:8} {:30} {:4} {:4} {:4}"
+    fmt = "{:8} {:30} {:^4} {:^4} {:^4}"
     print fmt.format("Player#","Name","FltA","FltB","FltC")
     players.clear()
     for flight in ['a','b','c']:
