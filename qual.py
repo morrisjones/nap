@@ -2,9 +2,12 @@
 
 import sys
 from gamefile import Gamefile
+from subprocess import call
+import os
 
 __version_info__ = ('2017', '08', '20')
 __version__ = '-'.join(__version_info__)
+__cwd__ = os.path.dirname(os.path.realpath(__file__))
 
 # Array of all read game files
 games = []
@@ -24,12 +27,18 @@ def collect_players(flight):
       else:
         qualdates[p].add(qd)
 
+def extract_json(gamefile):
+  print "Script dir: %s" % __cwd__
+  return
+
 if __name__ == "__main__":
   import argparse
 
   parser = argparse.ArgumentParser(description='Create NAP qualifer list')
-  parser.add_argument('input', type=str, 
+  parser.add_argument('gamefiles', type=str, 
       help="gamefile json file name, else stdin", nargs='*')
+  parser.add_argument('-t', '--tree', 
+      help="top directory of a tree of ACBLScore game files")
   parser.add_argument('-c', '--clubs', action="store_true", 
       help="Show info for clubs and games")
   parser.add_argument('-f', '--flight', action="append", default=[], 
@@ -37,15 +46,22 @@ if __name__ == "__main__":
       help="Select A B or C to report qualifying players")
   parser.add_argument('-v', '--verbose', action="store_true",
       help="Include more verbose information in reports")
-  parser.add_argument('-V', '--version', action="version", version="%(prog)s ("+__version__+")")
+  parser.add_argument('-V', '--version', action="version", 
+      version="%(prog)s ("+__version__+")")
   args = parser.parse_args()
 
-  if not args.input:
-    gjson = sys.stdin.read()
-    game = Gamefile(gjson)
-    games.append(game)
-  else:
-    for filename in args.input:
+  gamefile_tree = "./gamefiles"
+  if args.tree:
+    gamefile_tree = args.tree
+
+  if gamefile_tree[0] != '/':
+    gamefile_tree = __cwd__ + "/" + gamefile_tree
+
+  if args.verbose:
+    print "Gamefile tree: %s" % gamefile_tree
+
+  if args.gamefiles:
+    for filename in args.gamefiles:
       with open(filename,'r') as f:
         gjson = f.read()
       game = Gamefile(gjson)
