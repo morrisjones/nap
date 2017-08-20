@@ -16,6 +16,7 @@ See: http://www.gnu.org/licenses/gpl.html for full license.
 TODO list:
 
 * Generate a duplicates report
+* Develop a means to manually add qualifiers from luddite directors
 
 HELP output, ./qual.py -h
 
