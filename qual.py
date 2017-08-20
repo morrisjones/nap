@@ -16,7 +16,7 @@ def collect_players(flight):
     qp = game.qualified_players(flight)
     for p in qp:
       players.add(p)
-  for p in sorted(qp):
+  for p in sorted(players):
     print p
 
 if __name__ == "__main__":
