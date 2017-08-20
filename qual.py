@@ -1,5 +1,15 @@
 #!/usr/bin/python
 
+# Generate reports for the NAP district playoffs.
+#
+# Morris "Mojo" Jones (Monrovia, CA)
+#
+# Grateful acknowledgement to Matthew J. Kidd of lajollabridge.com for his
+# perl gamefile parsing tools, which are included here..
+#
+# This software is released under the GNU General Public License GPLv3
+# See: http://www.gnu.org/licenses/gpl.html for full license.
+
 import sys
 from gamefile import Gamefile
 from subprocess import check_output

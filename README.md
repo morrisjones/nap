@@ -1,6 +1,17 @@
 NAP qualifiers
 
-Generate reports from collected ACBLScore gamefiles.
+Morris "Mojo" Jones
+Monrovia, CA
+mojo@whiteoaks.com
+
+Generate reports relevant to the North American Pairs district
+playoffs from collected ACBLScore gamefiles.
+
+Grateful acknowledgement to Matthew J. Kidd of lajollabridge.com for
+his ACBLscore gamefile parsing software.
+
+This software is released under the GNU General Public License GPLv3
+See: http://www.gnu.org/licenses/gpl.html for full license.
 
 TODO list:
 
