@@ -3,6 +3,10 @@
 from datetime import datetime
 
 class QualDate(object):
+  """This probably could have been a tuple, but it's a useful abstraction
+  of a qualifying game, including the club and date. The club field is 
+  expected to be of type Club, which includes the club number and name.
+  """
 
   def __init__(self,club,date):
     self.club = club

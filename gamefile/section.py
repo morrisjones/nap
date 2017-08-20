@@ -3,6 +3,15 @@
 from player import Player
 
 class Section(object):
+  """Here is the most useful data of players and qualifying flags.
+  The value of qual_flag is 0 if not qualified, or an integer that is
+  the rank of the qualifier. I.e., a qual_flag value of '1' is the top
+  qualifier in the section, '2' is the second, etc.
+
+  The rank array has a number of elements that match the flight of the
+  player's game results. rank[0] is results for flight A, rank[1] for
+  flight B, etc.
+  """
 
   def __init__(self,letter,section_dict):
     self.letter = letter

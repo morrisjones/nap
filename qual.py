@@ -17,6 +17,16 @@ players = set()
 # Qualifying dates
 qualdates = {}
 
+#
+# collect_players(flight)
+# 
+# Add qualified players from the specified flight to the global players set
+# for all collected games. The calling function can clear() the players set, 
+# or allow it to accumulate to get a set from more than one flight.
+#
+# Argument:
+#    flight  A character 'a' 'b' or 'c' (not tested for validity)
+#
 def collect_players(flight):
   for game in sorted(games):
     qd = game.get_qualdate()
@@ -28,6 +38,14 @@ def collect_players(flight):
       else:
         qualdates[p].add(qd)
 
+#
+# extract_json(gamefile)
+#
+# The argument is the full path of one ACBLScore gamefile on the file
+# system. The function forks out to the perl program ACBLgamedump.pl to
+# generate a JSON dump of the gamefile, which is appended to the global
+# games array.
+#
 def extract_json(gamefile):
   dump = join(__cwd__,"ACBLgamedump.pl")
   json = check_output([dump, gamefile])
@@ -35,7 +53,22 @@ def extract_json(gamefile):
   games.append(game)
   return
 
+#
+# MAIN routine
+#
+# Uses argparse, the help flag -h will print usage. Drives the report 
+# generation.
+#
+# Individual gamefiles can be specified on the command line, else the
+# program will walk a directory tree and process each gamefile found in
+# the tree. By default it will walk a tree at ./gamefiles from the 
+# directory where this script is found.
+#
 if __name__ == "__main__":
+
+  #
+  # Set up command line arguments
+  #
   import argparse
 
   parser = argparse.ArgumentParser(description='Create NAP qualifer list')
@@ -56,8 +89,10 @@ if __name__ == "__main__":
       version="%(prog)s ("+__version__+")")
   args = parser.parse_args()
 
+  #
   # if gamefiles are specified on the command line, process those
   # otherwise look for gamefiles on the gamefile tree
+  #
   if args.gamefiles:
     for filename in args.gamefiles:
       extract_json(filename)
@@ -74,12 +109,19 @@ if __name__ == "__main__":
       for f in files:
         extract_json(join(root,f))
 
+  #
+  # The club report lists all clubs and game dates in the data set
+  #
   if args.clubs:
     print "{:8} {:30} {:17}    {:5}".format("Club No.","Club Name","Game Date","Tables")
     for game in sorted(games):
       club = game.get_club()
       print "{:8} {:30} {:17}    {:5}".format(club.number,club.name,game.get_game_date(), game.table_count())
 
+  #
+  # This is the report for individual flight qualifiers. If multiple flights are
+  # specified on the command line, each report will be generated
+  #
   for flight in args.flight:
     players.clear()
     qualdates.clear()
@@ -92,6 +134,10 @@ if __name__ == "__main__":
         for qd in sorted(qualdates[p]):
           print "            %s" % qd
 
+  #
+  # This report is a summary of all players and qualifying flights, emulating the
+  # report from ACBLscore
+  #
   if args.summary:
     print "\nSummary of NAP Qualifiers\n"
     fmt = "{:8} {:30} {:^4} {:^4} {:^4}"

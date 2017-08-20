@@ -2,6 +2,8 @@
 
 
 class Club(object):
+  """Should probably just be a tuple, club name and number.
+  """
 
   def __init__(self,name,number):
     self.name = name

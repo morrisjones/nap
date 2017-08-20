@@ -36,8 +36,11 @@ class Player(object):
     fname
     lname
     pnum
-    mp_total
-    acbl_rank_letter
+
+  The attribute canon_pnum is derived from pnum by replacing a leading
+  alphabetic character with the corresponding numeric value. This allows
+  de-duping players who have achieved Life Master status, and list it
+  within their player number.
   """
 
   def __init__(self, lname, fname, pnum=''):
@@ -49,6 +52,11 @@ class Player(object):
     self.b_flight = False
     self.c_flight = False
 
+  #
+  # Players are considered identical when they have the same
+  # canonical player number (canon_pnum). If the player has
+  # no player number, the key is a tuple of lname,fname.
+  #
   def __key(self):
     if len(self.canon_pnum) < 7:
       return (self.lname,self.fname)
@@ -61,6 +69,9 @@ class Player(object):
   def __eq__(self,other):
     return self.__key() == other.__key()
 
+  #
+  # Players are sorted by last name, first name
+  #
   def __cmp__(self,other):
     if self.lname != other.lname:
       if self.lname > other.lname:
@@ -74,18 +85,25 @@ class Player(object):
         return -1
     return 0
 
+  #
+  # Display the player class as lname, fname and player number
+  #
   def __str__(self):
     name = self.terse()
     fmt = '{name:24} {pnum:8}'
     out = fmt.format(name=name, pnum=self.pnum)
     return out
     
-    return out
-    
+  #
+  # terse() prints name only, last name first
+  #
   def terse(self):
     name = self.lname + ", " + self.fname
     return name
 
+  #
+  # set and check qualifying flags for each flight. qual is a boolean
+  #
   def set_qual(self,flight,qual):
     if flight == 'a':
       self.a_flight = qual

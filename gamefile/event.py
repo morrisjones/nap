@@ -3,6 +3,9 @@
 from event_details import EventDetails
 
 class Event(object):
+  """The event object is a parent for EventDetails, and only has
+    meta information from ACBLscore.
+  """
 
   def __init__(self,event_dict):
     self.event_dict = event_dict
