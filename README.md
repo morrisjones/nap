@@ -4,12 +4,11 @@ Generate reports from collected ACBLScore gamefiles.
 
 TODO list:
 
-* Generate Q report that shows players and all qualified flights
 * Generate a duplicates report
 
 HELP output, ./qual.py -h
 
-    usage: qual.py [-h] [-t TREE] [-c] [-f {a,b,c}] [-v] [-V]
+    usage: qual.py [-h] [-t TREE] [-c] [-f {a,b,c}] [-v] [-s] [-V]
                    [gamefiles [gamefiles ...]]
 
     Create NAP qualifer list
@@ -25,4 +24,5 @@ HELP output, ./qual.py -h
       -f {a,b,c}, --flight {a,b,c}
                             Select A B or C to report qualifying players
       -v, --verbose         Include more verbose information in reports
+      -s, --summary         Generate the qualifier summary report
       -V, --version         show program's version number and exit
