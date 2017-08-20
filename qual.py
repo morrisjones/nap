@@ -11,7 +11,7 @@ players = set()
 qualdates = {}
 
 def collect_players(flight):
-  for game in sorted[games]:
+  for game in sorted(games):
     qd = game.get_qualdate()
     qp = game.qualified_players(flight)
     for p in qp:
