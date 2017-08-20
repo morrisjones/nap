@@ -1,8 +1,8 @@
 NAP qualifiers
 
-Morris "Mojo" Jones
-Monrovia, CA
-mojo@whiteoaks.com
+Morris "Mojo" Jones  
+Monrovia, CA  
+mojo@whiteoaks.com  
 
 Generate reports relevant to the North American Pairs district
 playoffs from collected ACBLScore gamefiles.
@@ -17,6 +17,7 @@ TODO list:
 
 * Generate a duplicates report
 * Develop a means to manually add qualifiers from luddite directors
+* Support limited games where the rank array doesn't start with flight A
 
 HELP output, ./qual.py -h
 
