@@ -50,6 +50,8 @@ if __name__ == "__main__":
       help="Select A B or C to report qualifying players")
   parser.add_argument('-v', '--verbose', action="store_true",
       help="Include more verbose information in reports")
+  parser.add_argument('-s', '--summary', action="store_true",
+      help="Generate the qualifier summary report")
   parser.add_argument('-V', '--version', action="version", 
       version="%(prog)s ("+__version__+")")
   args = parser.parse_args()
@@ -73,8 +75,7 @@ if __name__ == "__main__":
         extract_json(join(root,f))
 
   if args.clubs:
-    if args.verbose:
-      print "{:8} {:30} {:17}    {:5}".format("Club No.","Club Name","Game Date","Tables")
+    print "{:8} {:30} {:17}    {:5}".format("Club No.","Club Name","Game Date","Tables")
     for game in sorted(games):
       club = game.get_club()
       print "{:8} {:30} {:17}    {:5}".format(club.number,club.name,game.get_game_date(), game.table_count())
@@ -90,6 +91,19 @@ if __name__ == "__main__":
       if args.verbose:
         for qd in sorted(qualdates[p]):
           print "            %s" % qd
+
+  if args.summary:
+    print "\nSummary of NAP Qualifiers\n"
+    fmt = "{:8} {:30} {:4} {:4} {:4}"
+    print fmt.format("Player#","Name","FltA","FltB","FltC")
+    players.clear()
+    for flight in ['a','b','c']:
+      collect_players(flight)
+    for p in sorted(players):
+      flta = 'Q' if p.is_qual('a') else ' '
+      fltb = 'Q' if p.is_qual('b') else ' '
+      fltc = 'Q' if p.is_qual('c') else ' '
+      print fmt.format(p.pnum,p.terse(),flta,fltb,fltc)
 
   sys.exit(0)
 
