@@ -3,6 +3,9 @@
 import sys
 from gamefile import Gamefile
 
+__version_info__ = ('2017', '08', '20')
+__version__ = '-'.join(__version_info__)
+
 # Array of all read game files
 games = []
 # Array of all players
@@ -34,6 +37,7 @@ if __name__ == "__main__":
       help="Select A B or C to report qualifying players")
   parser.add_argument('-v', '--verbose', action="store_true",
       help="Include more verbose information in reports")
+  parser.add_argument('-V', '--version', action="version", version="%(prog)s ("+__version__+")")
   args = parser.parse_args()
 
   if not args.input:
