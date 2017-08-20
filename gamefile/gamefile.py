@@ -2,6 +2,7 @@
 
 import json
 from event import Event
+from qualdate import QualDate
 
 class Gamefile(object):
   """Represents a gamefile imported using ACBLgamedump.pm from JSON
@@ -20,6 +21,16 @@ class Gamefile(object):
     fmt = 'Game:\n  Name:   {0}\n  Number: {1}\n  Date:   {2}\n'
     return fmt.format(self.get_club().name, self.get_club().number, self.get_game_date())
 
+  def __cmp__(self,other):
+    me = self.get_qualdate().ptime
+    him = other.get_qualdate().ptime
+    if me > him:
+      return 1
+    if me < him:
+      return -1
+    else:
+      return 0
+
   def parse(self,jsonstring):
     gamefiledict = json.loads(jsonstring)
     return gamefiledict
@@ -32,6 +43,9 @@ class Gamefile(object):
 
   def get_game_date(self):
     return self.events[0].details[0].date
+
+  def get_qualdate(self):
+    return QualDate(self.get_club(),self.get_game_date())
 
   def table_count(self):
     entries = 0.0
@@ -52,7 +66,6 @@ class Gamefile(object):
     for section in self.get_sections():
       for player in section.players:
         if player.is_qual(flight):
-          player.add_qualdate(self.get_club(),self.get_game_date())
           qp.append(player)
     return qp
 

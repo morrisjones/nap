@@ -1,6 +1,33 @@
 #!/usr/bin/python
 
-from qualdate import QualDate
+pnum_map = {
+  'J': '1',
+  'j': '1',
+  'K': '2',
+  'k': '2',
+  'L': '3',
+  'l': '3',
+  'M': '4',
+  'm': '4',
+  'N': '5',
+  'n': '5',
+  'O': '6',
+  'o': '6',
+  'P': '7',
+  'p': '7',
+  'Q': '8',
+  'q': '8',
+  'R': '9',
+  'r': '9',
+}
+
+def canonical_pnum(p):
+  if len(p) < 7:
+    return p
+  c = p[0]
+  if c.isalpha():
+    c = pnum_map[c]
+  return c + p[1:]
 
 class Player(object):
   """Object representing an ACBL member
@@ -17,13 +44,22 @@ class Player(object):
     self.lname = lname
     self.fname = fname
     self.pnum = pnum
+    self.canon_pnum = canonical_pnum(pnum)
     self.a_flight = False
     self.b_flight = False
     self.c_flight = False
-    self.qualdates = []
+
+  def __key(self):
+    if len(self.canon_pnum) < 7:
+      return (self.lname,self.fname)
+    else:
+      return self.canon_pnum
 
   def __hash__(self):
-    return hash(self.lname + self.fname + self.pnum)
+    return hash(self.__key())
+
+  def __eq__(self,other):
+    return self.__key() == other.__key()
 
   def __cmp__(self,other):
     if self.lname != other.lname:
@@ -39,13 +75,17 @@ class Player(object):
     return 0
 
   def __str__(self):
-    name = self.lname + ", " + self.fname
-    fmt = '{name:25} {pnum:8}'
+    name = self.terse()
+    fmt = '{name:24} {pnum:8}'
     out = fmt.format(name=name, pnum=self.pnum)
-    for qualdate in self.qualdates:
-      out += '    {:18} {:25}'.format(qualdate.date,qualdate.club.name)
     return out
     
+    return out
+    
+  def terse(self):
+    name = self.lname + ", " + self.fname
+    return name
+
   def set_qual(self,flight,qual):
     if flight == 'a':
       self.a_flight = qual
@@ -63,8 +103,4 @@ class Player(object):
       return self.c_flight
     else:
       return False
-
-  def add_qualdate(self,club,date):
-    qd = QualDate(club,date)
-    self.qualdates.append(qd)
 
