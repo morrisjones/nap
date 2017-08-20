@@ -2,8 +2,9 @@
 
 import sys
 from gamefile import Gamefile
-from subprocess import call
+from subprocess import check_output
 import os
+from os.path import join
 
 __version_info__ = ('2017', '08', '20')
 __version__ = '-'.join(__version_info__)
@@ -28,7 +29,10 @@ def collect_players(flight):
         qualdates[p].add(qd)
 
 def extract_json(gamefile):
-  print "Script dir: %s" % __cwd__
+  dump = join(__cwd__,"ACBLgamedump.pl")
+  json = check_output([dump, gamefile])
+  game = Gamefile(json)
+  games.append(game)
   return
 
 if __name__ == "__main__":
@@ -50,22 +54,24 @@ if __name__ == "__main__":
       version="%(prog)s ("+__version__+")")
   args = parser.parse_args()
 
-  gamefile_tree = "./gamefiles"
-  if args.tree:
-    gamefile_tree = args.tree
-
-  if gamefile_tree[0] != '/':
-    gamefile_tree = __cwd__ + "/" + gamefile_tree
-
-  if args.verbose:
-    print "Gamefile tree: %s" % gamefile_tree
-
+  # if gamefiles are specified on the command line, process those
+  # otherwise look for gamefiles on the gamefile tree
   if args.gamefiles:
     for filename in args.gamefiles:
-      with open(filename,'r') as f:
-        gjson = f.read()
-      game = Gamefile(gjson)
-      games.append(game)
+      extract_json(filename)
+  else:
+    gamefile_tree = "./gamefiles"
+    if args.tree:
+      gamefile_tree = args.tree
+
+    if gamefile_tree[0] != '/':
+      gamefile_tree = join(__cwd__,gamefile_tree)
+
+    # Walk the gamefile tree and pass everything that looks like a 
+    # gamefile to extract_json
+    for root, dirs, files in os.walk(gamefile_tree):
+      for f in files:
+        extract_json(join(root,f))
 
   if args.clubs:
     if args.verbose:
