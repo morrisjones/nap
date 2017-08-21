@@ -63,6 +63,9 @@ class Player(object):
     else:
       return self.canon_pnum
 
+  def get_key(self):
+    return self.__key()
+
   def __hash__(self):
     return hash(self.__key())
 
@@ -83,7 +86,18 @@ class Player(object):
         return 1
       else:
         return -1
+    if self.pnum != other.pnum:
+      if self.pnum > other.pnum:
+        return 1
+      else:
+        return -1
     return 0
+
+  #
+  # Public cmp does not invoke hash and eq
+  #
+  def cmp(self,other):
+    return self.__cmp__(other)
 
   #
   # Display the player class as lname, fname and player number
