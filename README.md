@@ -17,7 +17,6 @@ TODO list:
 
 * Generate a duplicates report
 * Develop a means to manually add qualifiers from luddite directors
-* Support limited games where the rank array doesn't start with flight A
 
 HELP output, ./qual.py -h
 

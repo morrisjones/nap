@@ -41,6 +41,9 @@ class Gamefile(object):
   def get_club(self):
     return self.events[0].details[0].club
 
+  def get_strats(self):
+    return self.events[0].details[0].strats
+
   def get_game_date(self):
     return self.events[0].details[0].date
 
