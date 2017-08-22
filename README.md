@@ -15,12 +15,11 @@ See: http://www.gnu.org/licenses/gpl.html for full license.
 
 TODO list:
 
-* Generate a duplicates report
 * Develop a means to manually add qualifiers from luddite directors
 
 HELP output, ./qual.py -h
 
-    usage: qual.py [-h] [-t TREE] [-c] [-f {a,b,c}] [-v] [-s] [-V]
+    usage: qual.py [-h] [-t TREE] [-c] [-f {a,b,c}] [-v] [-s] [-V] [-d]
                    [gamefiles [gamefiles ...]]
 
     Create NAP qualifer list
@@ -38,3 +37,4 @@ HELP output, ./qual.py -h
       -v, --verbose         Include more verbose information in reports
       -s, --summary         Generate the qualifier summary report
       -V, --version         show program's version number and exit
+      -d, --dupe            Generate an interesting report of player duplicates
