@@ -60,7 +60,7 @@ def extract_json(gamefile):
   dump = join(__cwd__,"ACBLgamedump.pl")
 
   (handle,fname) = mkstemp()
-  check_call("%s %s >%s" % (dump, gamefile, fname),shell=True)
+  check_call("%s %s >%s 2>&1" % (dump, gamefile, fname),shell=True)
 
   with open(fname,"r") as f:
     json = f.read()
