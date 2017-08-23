@@ -14,6 +14,7 @@ class EventDetails(object):
     self.details_dict = details_dict
     self.club = Club(details_dict['club'],details_dict['club_num'])
     self.date = details_dict['date']
+    self.club_session_num = details_dict['club_session_num']
 
     # Load the strats array
     self.strats = []
@@ -34,3 +35,16 @@ class EventDetails(object):
     strat = self.strats[rank_index]
     return strat.letter.lower()
 
+  def compute_total_pairs(self):
+    totals = {
+      'a' : 0,
+      'b' : 0,
+      'c' : 0,
+      'd' : 0,
+    }
+    for section in self.sections:
+      for seat in section.entries.keys():
+        entry = section.entries[seat]
+        ltr = self.map_rank_index_to_strat(entry['strat_num'] - 1)
+        totals[ltr] += 1
+    return totals

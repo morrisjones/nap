@@ -17,6 +17,12 @@ class Gamefile(object):
       event = Event(e)
       self.events.append(event)
 
+  def __key(self):
+    return (self.get_club().number, self.get_game_date(), self.get_club_session_num())
+    
+  def get_key(self):
+    return self.__key()
+
   def __str__(self):
     fmt = 'Game:\n  Name:   {0}\n  Number: {1}\n  Date:   {2}\n'
     return fmt.format(self.get_club().name, self.get_club().number, self.get_game_date())
@@ -29,7 +35,12 @@ class Gamefile(object):
     if me < him:
       return -1
     else:
-      return 0
+      if self.get_club_num() > other.get_club_num():
+        return 1
+      if self.get_club_num() < other.get_club_num():
+        return -1
+      else:
+        return 0
 
   def parse(self,jsonstring):
     gamefiledict = json.loads(jsonstring)
@@ -46,6 +57,15 @@ class Gamefile(object):
 
   def get_game_date(self):
     return self.events[0].details[0].date
+
+  def get_club_session_num(self):
+    return self.events[0].details[0].club_session_num
+
+  def get_event_details(self):
+    return self.events[0].details[0]
+
+  def get_club_num(self):
+    return self.get_club().number
 
   def get_qualdate(self):
     return QualDate(self.get_club(),self.get_game_date())

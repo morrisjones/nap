@@ -17,58 +17,109 @@ from os.path import join
 from __init__ import __version__
 from StringIO import StringIO
 
-# Array of all read game files
-games = []
-# Array of all players
-players = set()
-# Qualifying dates
-qualdates = {}
-
-# This file's directory
+#
+# This file's directory, necessary for finding ACBLdump utils
+#
 __cwd__ = os.path.dirname(os.path.realpath(__file__))
 
 #
-# collect_players(flight)
-# 
-# Add qualified players from the specified flight to the global players set
-# for all collected games. The calling function can clear() the players set, 
-# or allow it to accumulate to get a set from more than one flight.
+# Globals and methods to help webapp calls
 #
-# Argument:
-#    flight  A character 'a' 'b' or 'c' (not tested for validity)
-#
-def collect_players(flight):
-  for game in sorted(games):
-    qd = game.get_qualdate()
-    qp = game.qualified_players(flight)
-    for p in qp:
-      players.add(p)
-      if p not in qualdates:
-        qualdates[p] = set([qd])
-      else:
-        qualdates[p].add(qd)
+class Nap(object):
 
-#
-# extract_json(gamefile)
-#
-# The argument is the full path of one ACBLScore gamefile on the file
-# system. The function forks out to the perl program ACBLgamedump.pl to
-# generate a JSON dump of the gamefile, which is appended to the global
-# games array.
-#
-def extract_json(gamefile):
-  dump = join(__cwd__,"ACBLgamedump.pl")
+  #
+  # The set of persistent Game objects
+  #
+  games = {}
 
-  (handle,fname) = mkstemp()
-  check_call("%s %s >%s 2>&1" % (dump, gamefile, fname),shell=True)
+  #
+  # Persistent set of Player objects
+  #
+  players = set()
 
-  with open(fname,"r") as f:
-    json = f.read()
-  os.remove(fname)
+  #
+  # Qualdates tie players to games
+  #
+  qualdates = {}
 
-  game = Gamefile(json)
-  games.append(game)
-  return
+  # INIT
+  def __init__(self):
+    self.games.clear()
+    self.players.clear()
+    self.qualdates.clear()
+
+  #
+  # Parse one game
+  #
+  def parse_game(self,gamefile):
+    dump = join(__cwd__,"ACBLgamedump.pl")
+
+    (handle,fname) = mkstemp()
+    check_call("%s %s >%s 2>&1" % (dump, gamefile, fname),shell=True)
+
+    with open(fname,"r") as f:
+      json = f.read()
+    os.remove(fname)
+
+    game = Gamefile(json)
+    return game
+
+  #
+  # Save one game on the games array
+  #
+  def load_game(self,gamefile):
+    game = self.parse_game(gamefile)
+    self.games[game.get_key()] = game
+    return game
+
+  #
+  # Reload the games array
+  #
+  def reload_games(self,gamefile_tree):
+    self.games.clear()
+
+    # Walk the gamefile tree and pass everything that looks like a 
+    # gamefile to extract_json
+    for root, dirs, files in os.walk(gamefile_tree):
+      for f in files:
+        self.load_game(join(root,f))
+    return self.get_game_list()
+
+  #
+  # Produce a sorted list of games
+  #
+  def get_game_list(self):
+    gamelist = []
+    for g in self.games.keys():
+      gamelist.append(self.games[g])
+    return sorted(gamelist)
+
+  #
+  # Load the players set with all qualified players
+  #
+  def reload_players(self):
+    for flight in ['a','b','c']:
+      for game in self.get_game_list():
+        qd = game.get_qualdate()
+        qp = game.qualified_players(flight)
+        for p in qp:
+          self.players.add(p)
+          if p not in self.qualdates:
+            self.qualdates[p] = set([qd])
+          else:
+            self.qualdates[p].add(qd)
+    return sorted(self.players)
+
+  #
+  # Single flight of qualified players
+  # Assumes the player array is loaded!
+  #
+  def single_flight(self,flight):
+    flight_players = []
+    for p in self.players:
+      if p.is_qual(flight):
+        flight_players.append(p)
+    return sorted(flight_players)
 
 #
 # MAIN routine
@@ -82,15 +133,6 @@ def extract_json(gamefile):
 # directory where this script is found.
 #
 def main(scriptdir,arglist):
-
-  #
-  # Clear the globals
-  #
-
-  del games[:]
-  players.clear()
-  qualdates.clear()
-
   #
   # Set up command line arguments
   #
@@ -117,12 +159,17 @@ def main(scriptdir,arglist):
   args = parser.parse_args(arglist)
 
   #
+  # our object
+  #
+  nap = Nap()
+
+  #
   # if gamefiles are specified on the command line, process those
   # otherwise look for gamefiles on the gamefile tree
   #
   if args.gamefiles:
     for filename in args.gamefiles:
-      extract_json(filename)
+      nap.load_game(filename)
   else:
     if args.tree:
       gamefile_tree = args.tree
@@ -130,13 +177,15 @@ def main(scriptdir,arglist):
     if gamefile_tree[0] != '/':
       gamefile_tree = join(scriptdir,gamefile_tree)
 
-    # Walk the gamefile tree and pass everything that looks like a 
-    # gamefile to extract_json
-    for root, dirs, files in os.walk(gamefile_tree):
-      for f in files:
-        extract_json(join(root,f))
+    nap.reload_games(gamefile_tree)
 
   report = ""
+
+  # Test report, totals in strats
+  for k in nap.games.keys():
+    game = nap.games[k]
+    details = game.get_event_details()
+    totals = details.compute_total_pairs()
 
   #
   # Club report
@@ -145,9 +194,10 @@ def main(scriptdir,arglist):
   if args.clubs:
     report += "{:8} {:30} {:17}    {:5}".format("Club No.","Club Name","Game Date","Tables")
     report += os.linesep
-    for game in sorted(games):
+    for game in nap.get_game_list():
       club = game.get_club()
-      report += "{:8} {:30} {:17}    {:5}".format(club.number,club.name,game.get_game_date(), game.table_count())
+      report += "{:8} {:30} {:17}    {:5}"\
+        .format(club.number,club.name,game.get_game_date(), game.table_count())
       report += os.linesep
 
   #
@@ -155,18 +205,16 @@ def main(scriptdir,arglist):
   # This is the report for individual flight qualifiers. If multiple flights are
   # specified on the command line, each report will be generated
   #
+  nap.reload_players()
   for flight in args.flight:
-    players.clear()
-    qualdates.clear()
     if args.verbose:
       report += "\nQualifiers in Flight %s\n" % flight.upper()
       report += os.linesep
-    collect_players(flight)
-    for p in sorted(players):
+    for p in nap.single_flight(flight):
       report += "%s" % p
       report += os.linesep
       if args.verbose:
-        for qd in sorted(qualdates[p]):
+        for qd in sorted(nap.qualdates[p]):
           report += "            %s" % qd
           report += os.linesep
 
@@ -181,46 +229,45 @@ def main(scriptdir,arglist):
     fmt = "{:8} {:30} {:^4} {:^4} {:^4}"
     report += fmt.format("Player#","Name","FltA","FltB","FltC")
     report += os.linesep
-    players.clear()
-    for flight in ['a','b','c']:
-      collect_players(flight)
-    for p in sorted(players):
+    for p in sorted(nap.players):
       flta = 'Q' if p.is_qual('a') else ' '
       fltb = 'Q' if p.is_qual('b') else ' '
       fltc = 'Q' if p.is_qual('c') else ' '
       report += fmt.format(p.pnum,p.terse(),flta,fltb,fltc)
       report += os.linesep
 
+  # TODO fix this
   #
   # Dupe report
   # This report lists players who appear in multiple game files under slightly
   # different names or player numbers
   #
   if args.dupe:
-    report += os.linesep + "Interesting player duplications" + os.linesep
-
-    # Initialize the canonical player list
-    players.clear()
-    for flight in ['a','b','c']:
-      collect_players(flight)
-    all_players = set(players)
-    keys = {}
-    for p in all_players:
-      keys[p.get_key()] = p
-
-    # Look for players in games who don't exactly match
-    for game in games:
-      gp = []
-      for section in game.get_sections():
-        gp.extend(section.players)
-      for player in gp:
-        if player.get_key() in keys:
-          q = keys[player.get_key()]
-          if player.fname != q.fname or \
-              player.lname != q.lname or \
-              player.pnum != q.pnum:
-            report += "%s%s" % (player, q)
-            report += os.linesep
+    report  += "TODO make dupe report"
+#     report += os.linesep + "Interesting player duplications" + os.linesep
+# 
+#     # Initialize the canonical player list
+#     players.clear()
+#     for flight in ['a','b','c']:
+#       collect_players(flight)
+#     all_players = set(players)
+#     keys = {}
+#     for p in all_players:
+#       keys[p.get_key()] = p
+# 
+#     # Look for players in games who don't exactly match
+#     for game in games:
+#       gp = []
+#       for section in game.get_sections():
+#         gp.extend(section.players)
+#       for player in gp:
+#         if player.get_key() in keys:
+#           q = keys[player.get_key()]
+#           if player.fname != q.fname or \
+#               player.lname != q.lname or \
+#               player.pnum != q.pnum:
+#             report += "%s%s" % (player, q)
+#             report += os.linesep
 
   # End of nap.main()
   return report
