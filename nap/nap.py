@@ -84,6 +84,14 @@ def extract_json(gamefile):
 def main(scriptdir,arglist):
 
   #
+  # Clear the globals
+  #
+
+  games.clear()
+  players.clear()
+  qualdates.clear()
+
+  #
   # Set up command line arguments
   #
   import argparse
