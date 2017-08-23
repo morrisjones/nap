@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 # Generate reports for the NAP district playoffs.
 #
 # Morris "Mojo" Jones (Monrovia, CA)
@@ -15,10 +13,7 @@ from gamefile import Gamefile
 from subprocess import check_output
 import os
 from os.path import join
-
-__version_info__ = ('2017', '08', '21')
-__version__ = '-'.join(__version_info__)
-__cwd__ = os.path.dirname(os.path.realpath(__file__))
+from __init__ import __version__
 
 # Array of all read game files
 games = []
@@ -26,6 +21,9 @@ games = []
 players = set()
 # Qualifying dates
 qualdates = {}
+
+# This file's directory
+__cwd__ = os.path.dirname(os.path.realpath(__file__))
 
 #
 # collect_players(flight)
@@ -74,7 +72,7 @@ def extract_json(gamefile):
 # the tree. By default it will walk a tree at ./gamefiles from the 
 # directory where this script is found.
 #
-if __name__ == "__main__":
+def main(scriptdir,arglist):
 
   #
   # Set up command line arguments
@@ -99,7 +97,7 @@ if __name__ == "__main__":
       version="%(prog)s ("+__version__+")")
   parser.add_argument('-d', '--dupe', action="store_true",
       help="Generate an interesting report of player duplicates")
-  args = parser.parse_args()
+  args = parser.parse_args(arglist)
 
   #
   # if gamefiles are specified on the command line, process those
@@ -113,7 +111,7 @@ if __name__ == "__main__":
       gamefile_tree = args.tree
 
     if gamefile_tree[0] != '/':
-      gamefile_tree = join(__cwd__,gamefile_tree)
+      gamefile_tree = join(scriptdir,gamefile_tree)
 
     # Walk the gamefile tree and pass everything that looks like a 
     # gamefile to extract_json

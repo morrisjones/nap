@@ -1,0 +1,10 @@
+#!/usr/bin/env python
+
+import sys, os
+from nap import nap
+
+__cwd__ = os.path.dirname(os.path.realpath(__file__))
+
+if __name__ == "__main__":
+  nap.main(__cwd__,sys.argv[1:])
+  sys.exit(0)

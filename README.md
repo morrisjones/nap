@@ -16,12 +16,13 @@ See: http://www.gnu.org/licenses/gpl.html for full license.
 TODO list:
 
 * Develop a means to manually add qualifiers from luddite directors
-* Handle bogus game files that might be submitted
+* Handle invalid ACBL gamefiles or other errors from ACBLgamedump
+  and the JSON parser
 
-HELP output, ./qual.py -h
+HELP output, ./qual -h
 
-    usage: qual.py [-h] [-t TREE] [-c] [-f {a,b,c}] [-v] [-s] [-V] [-d]
-                   [gamefiles [gamefiles ...]]
+    usage: qual [-h] [-t TREE] [-c] [-f {a,b,c}] [-v] [-s] [-V] [-d]
+                [gamefiles [gamefiles ...]]
 
     Create NAP qualifer list
 
