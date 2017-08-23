@@ -10,10 +10,12 @@
 
 import sys
 from gamefile import Gamefile
-from subprocess import check_output
+from subprocess import check_call
+from tempfile import mkstemp
 import os
 from os.path import join
 from __init__ import __version__
+from StringIO import StringIO
 
 # Array of all read game files
 games = []
@@ -56,7 +58,14 @@ def collect_players(flight):
 #
 def extract_json(gamefile):
   dump = join(__cwd__,"ACBLgamedump.pl")
-  json = check_output([dump, gamefile])
+
+  (handle,fname) = mkstemp()
+  check_call("%s %s >%s" % (dump, gamefile, fname),shell=True)
+
+  with open(fname,"r") as f:
+    json = f.read()
+  os.remove(fname)
+
   game = Gamefile(json)
   games.append(game)
   return
