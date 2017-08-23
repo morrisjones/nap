@@ -6,6 +6,6 @@ import nap
 setup(name='nap',
       version=nap.__version__,
       packages=find_packages(),
-      package_data={'nap',['ACBLgame*']},
+      package_data={'nap': ['ACBLgame*']},
       )
 
