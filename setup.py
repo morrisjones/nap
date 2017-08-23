@@ -1,6 +1,10 @@
+#!/usr/bin/env python
+
 from distutils.core import setup
+import nap
+
 setup(name='nap',
-      version='0.0.1',
-      py_modules=['nap'],
+      version=nap.__version__,
+      packages=['nap'],
       )
 
