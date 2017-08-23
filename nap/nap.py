@@ -119,15 +119,19 @@ def main(scriptdir,arglist):
       for f in files:
         extract_json(join(root,f))
 
+  report = ""
+
   #
   # Club report
   # List all clubs and game dates in the data set
   #
   if args.clubs:
-    print "{:8} {:30} {:17}    {:5}".format("Club No.","Club Name","Game Date","Tables")
+    report += "{:8} {:30} {:17}    {:5}".format("Club No.","Club Name","Game Date","Tables")
+    report += os.linesep
     for game in sorted(games):
       club = game.get_club()
-      print "{:8} {:30} {:17}    {:5}".format(club.number,club.name,game.get_game_date(), game.table_count())
+      report += "{:8} {:30} {:17}    {:5}".format(club.number,club.name,game.get_game_date(), game.table_count())
+      report += os.linesep
 
   #
   # Flight report
@@ -138,13 +142,16 @@ def main(scriptdir,arglist):
     players.clear()
     qualdates.clear()
     if args.verbose:
-      print "\nQualifiers in Flight %s\n" % flight.upper()
+      report += "\nQualifiers in Flight %s\n" % flight.upper()
+      report += os.linesep
     collect_players(flight)
     for p in sorted(players):
-      print p
+      report += "%s" % p
+      report += os.linesep
       if args.verbose:
         for qd in sorted(qualdates[p]):
-          print "            %s" % qd
+          report += "            %s" % qd
+          report += os.linesep
 
   #
   # Summary report
@@ -152,9 +159,11 @@ def main(scriptdir,arglist):
   # report from ACBLscore
   #
   if args.summary:
-    print "\nSummary of NAP Qualifiers\n"
+    report += os.linesep + "Summary of NAP Qualifiers" + os.linesep
+    report += os.linesep
     fmt = "{:8} {:30} {:^4} {:^4} {:^4}"
-    print fmt.format("Player#","Name","FltA","FltB","FltC")
+    report += fmt.format("Player#","Name","FltA","FltB","FltC")
+    report += os.linesep
     players.clear()
     for flight in ['a','b','c']:
       collect_players(flight)
@@ -162,7 +171,8 @@ def main(scriptdir,arglist):
       flta = 'Q' if p.is_qual('a') else ' '
       fltb = 'Q' if p.is_qual('b') else ' '
       fltc = 'Q' if p.is_qual('c') else ' '
-      print fmt.format(p.pnum,p.terse(),flta,fltb,fltc)
+      report += fmt.format(p.pnum,p.terse(),flta,fltb,fltc)
+      report += os.linesep
 
   #
   # Dupe report
@@ -170,7 +180,7 @@ def main(scriptdir,arglist):
   # different names or player numbers
   #
   if args.dupe:
-    print "\nInteresting player duplications\n"
+    report += os.linesep + "Interesting player duplications" + os.linesep
 
     # Initialize the canonical player list
     players.clear()
@@ -192,7 +202,9 @@ def main(scriptdir,arglist):
           if player.fname != q.fname or \
               player.lname != q.lname or \
               player.pnum != q.pnum:
-            print player, q
+            report += "%s%s" % (player, q)
+            report += os.linesep
 
-  sys.exit(0)
+  # End of nap.main()
+  return report
 
