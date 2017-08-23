@@ -87,7 +87,7 @@ def main(scriptdir,arglist):
   # Clear the globals
   #
 
-  games.clear()
+  del games[:]
   players.clear()
   qualdates.clear()
 
