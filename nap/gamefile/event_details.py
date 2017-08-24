@@ -15,6 +15,7 @@ class EventDetails(object):
     self.club = Club(details_dict['club'],details_dict['club_num'])
     self.date = details_dict['date']
     self.club_session_num = details_dict['club_session_num']
+    self.rating = details_dict['rating']
 
     # Load the strats array
     self.strats = []

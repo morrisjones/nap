@@ -9,7 +9,7 @@
 # See: http://www.gnu.org/licenses/gpl.html for full license.
 
 import sys
-from gamefile import Gamefile
+from gamefile import Gamefile, GamefileException
 from subprocess import check_call
 from tempfile import mkstemp
 import os
@@ -55,13 +55,29 @@ class Nap(object):
     dump = join(__cwd__,"ACBLgamedump.pl")
 
     (handle,fname) = mkstemp()
-    check_call("%s %s >%s 2>&1" % (dump, gamefile, fname),shell=True)
+    try:
+      check_call("%s %s >%s 2>&1" % (dump, gamefile, fname),shell=True)
+    except CalledProcessError, e:
+      raise GamefileException(e)
 
     with open(fname,"r") as f:
       json = f.read()
-    os.remove(fname)
+    if json.startswith('Not an ACBLscore game file'):
+      os.remove(fname)
+      raise GamefileException(json)
+    else:
+      os.remove(fname)
 
-    game = Gamefile(json)
+    try:
+      game = Gamefile(json)
+    except GamefileException:
+      raise
+    except Exception, e:
+      raise GamefileException(e)
+
+    rating = game.get_rating()
+    if not rating.startswith('NAP'):
+      raise GamefileExcpetion("Not NAP game: " + rating)
     return game
 
   #
@@ -80,7 +96,11 @@ class Nap(object):
     # gamefile to extract_json
     for root, dirs, files in os.walk(gamefile_tree):
       for f in files:
-        self.load_game(join(root,f))
+        try:
+          gamefile = join(root,f)
+          self.load_game(gamefile)
+        except GamefileException, e:
+          print >>sys.stderr, "Skipped %s" % gamefile, e
     return self.get_game_list()
 
   #

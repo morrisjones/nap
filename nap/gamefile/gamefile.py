@@ -1,8 +1,8 @@
-#!/usr/bin/python
 
 import json
 from event import Event
 from qualdate import QualDate
+from gamefile_exception import GamefileException
 
 class Gamefile(object):
   """Represents a gamefile imported using ACBLgamedump.pm from JSON
@@ -11,7 +11,10 @@ class Gamefile(object):
   """
 
   def __init__(self,json):
-    self.gamefiledict = self.parse(json)
+    try:
+      self.gamefiledict = self.parse(json)
+    except Exception, e:
+      raise GamefileException(e)
     self.events = []
     for e in self.gamefiledict:
       event = Event(e)
@@ -69,6 +72,9 @@ class Gamefile(object):
 
   def get_qualdate(self):
     return QualDate(self.get_club(),self.get_game_date())
+
+  def get_rating(self):
+    return self.events[0].details[0].rating
 
   def table_count(self):
     entries = 0.0

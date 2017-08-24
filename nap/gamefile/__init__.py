@@ -7,6 +7,7 @@
 #
 
 from gamefile import Gamefile
+from gamefile_exception import GamefileException
 from club import Club
 from event import Event
 from event_details import EventDetails
