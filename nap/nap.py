@@ -119,6 +119,56 @@ class Nap(object):
         flight_players.append(p)
     return sorted(flight_players)
 
+  #
+  # club games report
+  #
+  def club_games(self):
+    report = ""
+    fmt = "{:8} {:30} {:17} {:^7} {:>5}"
+    report += fmt.format("Club No.","Club Name","Game Date","Session","Tables")
+    report += os.linesep
+    for game in self.get_game_list():
+      club = game.get_club()
+      report += fmt.format(club.number, club.name, game.get_game_date(),\
+          game.get_club_session_num(), game.table_count())
+      report += os.linesep
+    return report
+
+  #
+  # single flight report
+  #
+  def flight_report(self,flight,verbose=False):
+    report = ""
+    if verbose:
+      report += "\nQualifiers in Flight %s\n" % flight.upper()
+      report += os.linesep
+    for p in self.single_flight(flight):
+      report += "%s" % p
+      report += os.linesep
+      if verbose:
+        for qd in sorted(self.qualdates[p]):
+          report += "            %s" % qd
+          report += os.linesep
+    return report
+
+  #
+  # summary report
+  #
+  def summary_report(self):
+    report = ""
+    report += os.linesep + "Summary of NAP Qualifiers" + os.linesep
+    report += os.linesep
+    fmt = "{:8} {:30} {:^4} {:^4} {:^4}"
+    report += fmt.format("Player#","Name","FltA","FltB","FltC")
+    report += os.linesep
+    for p in sorted(self.players):
+      flta = 'Q' if p.is_qual('a') else ' '
+      fltb = 'Q' if p.is_qual('b') else ' '
+      fltc = 'Q' if p.is_qual('c') else ' '
+      report += fmt.format(p.pnum,p.terse(),flta,fltb,fltc)
+      report += os.linesep
+    return report
+
 #
 # MAIN routine
 #
@@ -190,14 +240,7 @@ def main(scriptdir,arglist):
   # List all clubs and game dates in the data set
   #
   if args.clubs:
-    fmt = "{:8} {:30} {:17} {:^7} {:>5}"
-    report += fmt.format("Club No.","Club Name","Game Date","Session","Tables")
-    report += os.linesep
-    for game in nap.get_game_list():
-      club = game.get_club()
-      report += fmt.format(club.number, club.name, game.get_game_date(),\
-          game.get_club_session_num(), game.table_count())
-      report += os.linesep
+    report += nap.club_games()
 
   #
   # Flight report
@@ -206,16 +249,7 @@ def main(scriptdir,arglist):
   #
   nap.load_players()
   for flight in args.flight:
-    if args.verbose:
-      report += "\nQualifiers in Flight %s\n" % flight.upper()
-      report += os.linesep
-    for p in nap.single_flight(flight):
-      report += "%s" % p
-      report += os.linesep
-      if args.verbose:
-        for qd in sorted(nap.qualdates[p]):
-          report += "            %s" % qd
-          report += os.linesep
+    report += nap.flight_report(flight,args.verbose)
 
   #
   # Summary report
@@ -223,17 +257,7 @@ def main(scriptdir,arglist):
   # report from ACBLscore
   #
   if args.summary:
-    report += os.linesep + "Summary of NAP Qualifiers" + os.linesep
-    report += os.linesep
-    fmt = "{:8} {:30} {:^4} {:^4} {:^4}"
-    report += fmt.format("Player#","Name","FltA","FltB","FltC")
-    report += os.linesep
-    for p in sorted(nap.players):
-      flta = 'Q' if p.is_qual('a') else ' '
-      fltb = 'Q' if p.is_qual('b') else ' '
-      fltc = 'Q' if p.is_qual('c') else ' '
-      report += fmt.format(p.pnum,p.terse(),flta,fltb,fltc)
-      report += os.linesep
+    report += nap.summary_report()
 
   #
   # Dupe report
@@ -269,6 +293,7 @@ def main(scriptdir,arglist):
               p.lname != q.lname or \
               p.pnum != q.pnum:
             report += "%s%s" % (p,q)
+            report += os.linesep
 
   # End of nap.main()
   return report
