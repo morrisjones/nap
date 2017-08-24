@@ -35,9 +35,9 @@ class Gamefile(object):
     if me < him:
       return -1
     else:
-      if self.get_club_num() > other.get_club_num():
+      if self.get_club_session_num() > other.get_club_session_num():
         return 1
-      if self.get_club_num() < other.get_club_num():
+      if self.get_club_session_num() < other.get_club_session_num():
         return -1
       else:
         return 0
@@ -91,4 +91,11 @@ class Gamefile(object):
         if player.is_qual(flight):
           qp.append(player)
     return qp
+
+  def all_players(self):
+    plrs = []
+    for section in self.get_sections():
+      for player in section.players:
+        plrs.append(player)
+    return plrs
 

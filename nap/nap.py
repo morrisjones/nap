@@ -75,9 +75,7 @@ class Nap(object):
   #
   # Reload the games array
   #
-  def reload_games(self,gamefile_tree):
-    self.games.clear()
-
+  def load_games(self,gamefile_tree):
     # Walk the gamefile tree and pass everything that looks like a 
     # gamefile to extract_json
     for root, dirs, files in os.walk(gamefile_tree):
@@ -97,7 +95,7 @@ class Nap(object):
   #
   # Load the players set with all qualified players
   #
-  def reload_players(self):
+  def load_players(self):
     for flight in ['a','b','c']:
       for game in self.get_game_list():
         qd = game.get_qualdate()
@@ -177,7 +175,7 @@ def main(scriptdir,arglist):
     if gamefile_tree[0] != '/':
       gamefile_tree = join(scriptdir,gamefile_tree)
 
-    nap.reload_games(gamefile_tree)
+    nap.load_games(gamefile_tree)
 
   report = ""
 
@@ -192,12 +190,13 @@ def main(scriptdir,arglist):
   # List all clubs and game dates in the data set
   #
   if args.clubs:
-    report += "{:8} {:30} {:17}    {:5}".format("Club No.","Club Name","Game Date","Tables")
+    fmt = "{:8} {:30} {:17} {:^7} {:>5}"
+    report += fmt.format("Club No.","Club Name","Game Date","Session","Tables")
     report += os.linesep
     for game in nap.get_game_list():
       club = game.get_club()
-      report += "{:8} {:30} {:17}    {:5}"\
-        .format(club.number,club.name,game.get_game_date(), game.table_count())
+      report += fmt.format(club.number, club.name, game.get_game_date(),\
+          game.get_club_session_num(), game.table_count())
       report += os.linesep
 
   #
@@ -205,7 +204,7 @@ def main(scriptdir,arglist):
   # This is the report for individual flight qualifiers. If multiple flights are
   # specified on the command line, each report will be generated
   #
-  nap.reload_players()
+  nap.load_players()
   for flight in args.flight:
     if args.verbose:
       report += "\nQualifiers in Flight %s\n" % flight.upper()
@@ -236,38 +235,40 @@ def main(scriptdir,arglist):
       report += fmt.format(p.pnum,p.terse(),flta,fltb,fltc)
       report += os.linesep
 
-  # TODO fix this
   #
   # Dupe report
   # This report lists players who appear in multiple game files under slightly
   # different names or player numbers
   #
   if args.dupe:
-    report  += "TODO make dupe report"
-#     report += os.linesep + "Interesting player duplications" + os.linesep
-# 
-#     # Initialize the canonical player list
-#     players.clear()
-#     for flight in ['a','b','c']:
-#       collect_players(flight)
-#     all_players = set(players)
-#     keys = {}
-#     for p in all_players:
-#       keys[p.get_key()] = p
-# 
-#     # Look for players in games who don't exactly match
-#     for game in games:
-#       gp = []
-#       for section in game.get_sections():
-#         gp.extend(section.players)
-#       for player in gp:
-#         if player.get_key() in keys:
-#           q = keys[player.get_key()]
-#           if player.fname != q.fname or \
-#               player.lname != q.lname or \
-#               player.pnum != q.pnum:
-#             report += "%s%s" % (player, q)
-#             report += os.linesep
+    report  += os.linesep + "Interesting player duplications" + os.linesep + os.linesep
+    napdupe = Nap()
+    if args.gamefiles:
+      for filename in args.gamefiles:
+        napdupe.load_game(filename)
+    else:
+      if args.tree:
+        gamefile_tree = args.tree
+
+      if gamefile_tree[0] != '/':
+        gamefile_tree = join(scriptdir,gamefile_tree)
+
+    napdupe.load_games(gamefile_tree)
+    qual_players = napdupe.load_players()
+    keys = {}
+    for qp in qual_players:
+      keys[qp.get_key()] = qp
+
+    for k in napdupe.games.keys():
+      game = napdupe.games[k]
+      players = game.all_players()
+      for p in players:
+        if p.get_key() in keys:
+          q = keys[p.get_key()]
+          if p.fname != q.fname or \
+              p.lname != q.lname or \
+              p.pnum != q.pnum:
+            report += "%s%s" % (p,q)
 
   # End of nap.main()
   return report
