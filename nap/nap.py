@@ -1,12 +1,19 @@
-# Generate reports for the NAP district playoffs.
-#
-# Morris "Mojo" Jones (Monrovia, CA)
-#
-# Grateful acknowledgement to Matthew J. Kidd of lajollabridge.com for his
-# perl gamefile parsing tools, which are included here..
-#
-# This software is released under the GNU General Public License GPLv3
-# See: http://www.gnu.org/licenses/gpl.html for full license.
+"""Generate reports for the NAP district playoffs.
+
+Package methods:
+
+Classes:
+    Nap: Methods to generate reports, and contains games, players, and qualdates
+
+Grateful acknowledgement to Matthew J. Kidd of lajollabridge.com for his
+perl gamefile parsing tools, which are included here..
+
+This software is released under the GNU General Public License GPLv3
+See: http://www.gnu.org/licenses/gpl.html for full license.
+
+Morris "Mojo" Jones, mojo@bridgemojo.com
+
+"""
 
 import sys
 from gamefile import Gamefile, GamefileException
@@ -17,27 +24,42 @@ from os.path import join
 from __init__ import __version__
 from StringIO import StringIO
 
-#
 # This file's directory, necessary for finding ACBLdump utils
-#
 __cwd__ = os.path.dirname(os.path.realpath(__file__))
 
-#
-# Globals and methods to help webapp calls
-#
 class Nap(object):
+  """Encapsulates games, players, and qualdates for use in reports
+  """
 
   def __init__(self):
     self.games = {}
     self.players = set()
     self.qualdates = {}
 
-  #
-  # Parse one game
-  #
   def parse_game(self,gamefile):
+    """Convert a raw ACBLscore gamefile into Gamefile object.
+
+    This function relies on a perl script and accompanying perl module
+    that are included in the package as package_data.
+
+    ACBLgamedump is described at this link:
+      https://lajollabridge.com/Software/ACBLgamedump/ACBLgamedump-About.htm
+
+    Args:
+      gamefile: Path string to an ACBLscore game file on local storage
+
+    Returns:
+      Gamefile
+
+    Exceptions:
+      GamefileException if there is a parse error.
+    """
     dump = join(__cwd__,"ACBLgamedump.pl")
 
+    # Write JSON output to a temp file.
+    # (subprocess stdio capture cannot be used here. When this module is 
+    # embedded in a web framework, the stdio handles are frequently 
+    # unavailable.)
     (handle,fname) = mkstemp()
     try:
       check_call("%s %s >%s 2>&1" % (dump, gamefile, fname),shell=True)
@@ -64,20 +86,32 @@ class Nap(object):
       raise GamefileExcpetion("Not NAP game: " + rating)
     return game
 
-  #
-  # Save one game on the games array
-  #
   def load_game(self,gamefile):
+    """Save one gamefile in the games dictionary by its natural key"""
     game = self.parse_game(gamefile)
     self.games[game.get_key()] = game
     return game
 
-  #
-  # Reload the games array
-  #
   def load_games(self,gamefile_tree):
-    # Walk the gamefile tree and pass everything that looks like a 
-    # gamefile to extract_json
+    """Walk the gamefile tree and pass all files to load_game()
+
+    Since game file names are not globally unique, the practice here is
+    to keep game files in subdirectories with a relevant name for the
+    bridge club.
+
+    (If collisions between similarly named bridge clubs are anticipated, the
+    ACBL-assigned club number could be used as a parent directory instead,
+    following practices of TheCommonGame.com)
+
+    This method does not throw the GamefileException. If a particular file
+    throws that exception, it is skipped with a message written to stderr.
+
+    Args:
+      gamefile_tree: The root directory of a tree of game files.
+    Returns:
+      A list of Gamefile objects in their natural order, as returned by
+      get_game_list(). (Not the games dictionary.)
+    """
     for root, dirs, files in os.walk(gamefile_tree):
       for f in files:
         try:
@@ -87,19 +121,24 @@ class Nap(object):
           print >>sys.stderr, "Skipped %s" % gamefile, e
     return self.get_game_list()
 
-  #
-  # Produce a sorted list of games
-  #
   def get_game_list(self):
+    """Returns a list of games sorted by their occurence date/time"""
     gamelist = []
     for g in self.games.keys():
       gamelist.append(self.games[g])
     return sorted(gamelist)
 
-  #
-  # Load the players set with all qualified players
-  #
   def load_players(self):
+    """Populate the class players set with qualified players.
+
+    This method walks the game set and finds all players who have a
+    non-zero qual_flag value, meaning they have qualified to advance
+    in one of the three available flights.
+
+    Players who did not qualify in any flight are not added by this
+    method, but the player set is not cleared at the start. This method
+    will only add players, deleting none.
+    """
     for flight in ['a','b','c']:
       for game in self.get_game_list():
         qd = game.get_qualdate()
@@ -112,21 +151,26 @@ class Nap(object):
             self.qualdates[p].add(qd)
     return sorted(self.players)
 
-  #
-  # Single flight of qualified players
-  # Assumes the player array is loaded!
-  #
   def single_flight(self,flight):
+    """Return players from the class players set for a single flight.
+
+    Note that this method does not check or modify the class players
+    set, which must be populated before calling. (See load_players().)
+    """
     flight_players = []
     for p in self.players:
       if p.is_qual(flight):
         flight_players.append(p)
     return sorted(flight_players)
 
-  #
-  # club games report
-  #
   def club_games(self):
+    """Report club games in the data set.
+
+    ASCII formatted for fixed-pitch (<pre>) print out.
+
+    Args: none
+    Returns: report string
+    """
     report = ""
     fmt = "{:8} {:30} {:17} {:^7} {:>5}"
     report += fmt.format("Club No.","Club Name","Game Date","Session","Tables")
@@ -138,10 +182,16 @@ class Nap(object):
       report += os.linesep
     return report
 
-  #
-  # single flight report
-  #
   def flight_report(self,flight,verbose=False):
+    """Report players for a single flight
+
+    This is an ASCII formatted report for fixed-pitch (<pre>) rendering.
+
+    Args:
+      flight: Must be values from {'a','b','c'} (not tested)
+      verbose: If True, the report will include game dates and locations
+    Returns: report string
+    """
     report = ""
     if verbose:
       report += "\nQualifiers in Flight %s\n" % flight.upper()
@@ -159,6 +209,11 @@ class Nap(object):
   # summary report
   #
   def summary_report(self):
+    """Report all qualified players with markers for their flight.
+
+    Args: none
+    Returns: report string
+    """
     report = ""
     report += os.linesep + "Summary of NAP Qualifiers" + os.linesep
     report += os.linesep
@@ -173,21 +228,23 @@ class Nap(object):
       report += os.linesep
     return report
 
-#
-# MAIN routine
-#
-# Uses argparse, the help flag -h will print usage. Drives the report 
-# generation.
-#
-# Individual gamefiles can be specified on the command line, else the
-# program will walk a directory tree and process each gamefile found in
-# the tree. By default it will walk a tree at ./gamefiles from the 
-# directory where this script is found.
-#
 def main(scriptdir,arglist):
-  #
-  # Set up command line arguments
-  #
+  """Command line oriented report generator
+
+  Args:
+    scriptdir: 
+        If the gamefile_tree is relative, or default, it's assumed to be 
+        relative to the directory supplied in scriptdir. If gamefile_tree is 
+        supplied and starts with /, this argument is unnecessary.
+    arglist:
+        A string list, expected to be sys.argv from the command line. Will be
+        parsed by argparse.
+
+  The argument list may include a number of individual game files or with
+  the -t option, the top of a gamefile tree. Game files will be found by
+  walking the tree from that root.
+  """
+
   import argparse
 
   parser = argparse.ArgumentParser(description='Create NAP qualifer list')
@@ -212,15 +269,11 @@ def main(scriptdir,arglist):
       help="Diagnostic report of flight totals")
   args = parser.parse_args(arglist)
 
-  #
-  # our object
-  #
+  # Encapsulate the games, players, and qualdates
   nap = Nap()
 
-  #
   # if gamefiles are specified on the command line, process those
   # otherwise look for gamefiles on the gamefile tree
-  #
   if args.gamefiles:
     for filename in args.gamefiles:
       nap.load_game(filename)
@@ -235,7 +288,9 @@ def main(scriptdir,arglist):
 
   report = ""
 
-  # Test report, totals in strats
+  # (NEW in testing) Show number of pairs in each strat
+  # (Note that higher strats should include the number of pairs from
+  # lower strats as well, and do not at present.)
   if args.totals:
     for k in nap.games.keys():
       game = nap.games[k]
@@ -244,35 +299,28 @@ def main(scriptdir,arglist):
       print game
       print totals
 
-  #
   # Club report
   # List all clubs and game dates in the data set
-  #
   if args.clubs:
     report += nap.club_games()
 
-  #
   # Flight report
   # This is the report for individual flight qualifiers. If multiple flights are
   # specified on the command line, each report will be generated
-  #
   nap.load_players()
   for flight in args.flight:
     report += nap.flight_report(flight,args.verbose)
 
-  #
   # Summary report
   # This report is a summary of all players and qualifying flights, emulating the
   # report from ACBLscore
-  #
   if args.summary:
     report += nap.summary_report()
 
-  #
   # Dupe report
   # This report lists players who appear in multiple game files under slightly
   # different names or player numbers
-  #
+  # (The dupe report isn't yet de-duped. :) )
   if args.dupe:
     report  += os.linesep + "Interesting player duplications" + os.linesep + os.linesep
     napdupe = Nap()
