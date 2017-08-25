@@ -6,6 +6,7 @@ class QualDate(object):
   Attributes:
     club: A Club object, which includes name and number
     date: A date string, in long form, en_us formatted
+    sdate: Short date in local format
     ptime: A python datetime object, more useful for sorting
   """
 
@@ -13,6 +14,7 @@ class QualDate(object):
     self.club = club
     self.date = date
     self.ptime = datetime.strptime(date,"%B %d, %Y")
+    self.sdate = self.ptime.strftime("%x")
 
   def __key(self):
     return (self.club,self.date)
@@ -33,4 +35,4 @@ class QualDate(object):
 
   def __str__(self):
     fmt = "{date} {club}"
-    return "{0} {1}".format(self.ptime.strftime("%x"),self.club)
+    return "{0} {1}".format(self.sdate,self.club)
