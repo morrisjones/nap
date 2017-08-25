@@ -1,3 +1,9 @@
+0.2.3
+
+* Support the webapp with the nap.flight_players() method so it can
+  format output in the view
+* Use descriptive names instead of club session numbers
+
 0.2.2
 
 * Update the documentation to something more-or-less pydoc standard
