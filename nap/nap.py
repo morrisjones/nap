@@ -208,7 +208,7 @@ class Nap(object):
       report += fmt.format(club.number, 
                            club.name, 
                            game.get_game_date(),
-                           session_string[game.get_club_session_num()], 
+                           Nap.session_string[game.get_club_session_num()], 
                            game.table_count()
                           )
       report += os.linesep
