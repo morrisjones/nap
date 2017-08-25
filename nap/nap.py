@@ -29,35 +29,35 @@ from StringIO import StringIO
 # This file's directory, necessary for finding ACBLdump utils
 __cwd__ = os.path.dirname(os.path.realpath(__file__))
 
-# Mapping between club session numbers and day/time
-session_string = {
-  1: 'Mon AM',
-  2: 'Mon Aft',
-  3: 'Mon Eve',
-  4: 'Tue AM',
-  5: 'Tue Aft',
-  6: 'Tue Eve',
-  7: 'Wed AM',
-  8: 'Wed Aft',
-  9: 'Wed Eve',
-  10: 'Thu AM',
-  11: 'Thu Aft',
-  12: 'Thu Eve',
-  13: 'Fri AM',
-  14: 'Fri Aft',
-  15: 'Fri Eve',
-  16: 'Sat AM',
-  17: 'Sat Aft',
-  18: 'Sat Eve',
-  19: 'Sun AM',
-  20: 'Sun Aft',
-  21: 'Sun Eve',
-  22: '(Other)',
-}
-
 class Nap(object):
   """Encapsulates games, players, and qualdates for use in reports
   """
+
+  # Mapping between club session numbers and day/time
+  session_string = {
+    1: 'Mon AM',
+    2: 'Mon Aft',
+    3: 'Mon Eve',
+    4: 'Tue AM',
+    5: 'Tue Aft',
+    6: 'Tue Eve',
+    7: 'Wed AM',
+    8: 'Wed Aft',
+    9: 'Wed Eve',
+    10: 'Thu AM',
+    11: 'Thu Aft',
+    12: 'Thu Eve',
+    13: 'Fri AM',
+    14: 'Fri Aft',
+    15: 'Fri Eve',
+    16: 'Sat AM',
+    17: 'Sat Aft',
+    18: 'Sat Eve',
+    19: 'Sun AM',
+    20: 'Sun Aft',
+    21: 'Sun Eve',
+    22: '(Other)',
+  }
 
   def __init__(self):
     self.games = {}
