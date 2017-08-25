@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 pnum_map = {
   'J': '1',
   'j': '1',
@@ -22,6 +20,12 @@ pnum_map = {
 }
 
 def canonical_pnum(p):
+  """Convert a player number to a canonical player number.
+
+  Traditionally Life Masters have the first digit of their player number replaced
+  with a letter, from J through R, as a badge of honor. If the number is presented
+  with a leading letter value, this returns a mapping to the original digit.
+  """
   if len(p) < 7:
     return p
   c = p[0]
@@ -33,14 +37,18 @@ class Player(object):
   """Object representing an ACBL member
 
   Attributes:
-    fname
-    lname
-    pnum
+    fname: First name
+    lname: Last name
+    pnum: Player number as provided in the game file
+    canon_pnum: Canonical player number for finding duplicates
+    a_flight: Boolean value for an A flight qualification
+    b_flight: Boolean value for a B flight qualification
+    c_flight: Boolean value for a C flight qualification
 
-  The attribute canon_pnum is derived from pnum by replacing a leading
-  alphabetic character with the corresponding numeric value. This allows
-  de-duping players who have achieved Life Master status, and list it
-  within their player number.
+  Methods:
+    get_key(): Returns the private unique key for a pleyer. The key is the
+        canonical player number for ACBL members, or (lname,fname) for 
+        non-members.
   """
 
   def __init__(self, lname, fname, pnum=''):
@@ -52,11 +60,6 @@ class Player(object):
     self.b_flight = False
     self.c_flight = False
 
-  #
-  # Players are considered identical when they have the same
-  # canonical player number (canon_pnum). If the player has
-  # no player number, the key is a tuple of lname,fname.
-  #
   def __key(self):
     if len(self.canon_pnum) < 7:
       return (self.lname,self.fname)
@@ -72,10 +75,11 @@ class Player(object):
   def __eq__(self,other):
     return self.__key() == other.__key()
 
-  #
-  # Players are sorted by last name, first name
-  #
   def __cmp__(self,other):
+    """Natural ordering of Player objects
+
+    Order by last name, then first name, then player number
+    """
     if self.lname != other.lname:
       if self.lname > other.lname:
         return 1
@@ -93,32 +97,29 @@ class Player(object):
         return -1
     return 0
 
-  #
-  # Public cmp does not invoke hash and eq
-  #
   def cmp(self,other):
+    """Public method for the __cmp__ function, does not invoke __eq__ or __hash__"""
     return self.__cmp__(other)
 
-  #
-  # Display the player class as lname, fname and player number
-  #
   def __str__(self):
+    """Display the player as lname, fname, and plalyer number"""
     name = self.terse()
     fmt = '{name:24} {pnum:8}'
     out = fmt.format(name=name, pnum=self.pnum)
     return out
     
-  #
-  # terse() prints name only, last name first
-  #
   def terse(self):
+    """Print name only (no player number), lname, fname"""
     name = self.lname + ", " + self.fname
     return name
 
-  #
-  # set and check qualifying flags for each flight. qual is a boolean
-  #
   def set_qual(self,flight,qual):
+    """Set a qualifier flag
+
+    Args:
+      flight: One character of {'a','b','c'}
+      qual: Boolean value, True if qualfied
+    """
     if flight == 'a':
       self.a_flight = qual
     elif flight == 'b':
@@ -127,6 +128,11 @@ class Player(object):
       self.c_flight = qual
 
   def is_qual(self,flight):
+    """Return boolean qualifier flag
+
+    Args:
+      flight: One of {'a','b','c'}
+    """
     if flight == 'a':
       return self.a_flight
     elif flight == 'b':

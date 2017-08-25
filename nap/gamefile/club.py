@@ -1,8 +1,12 @@
-#!/usr/bin/python
-
-
 class Club(object):
-  """Should probably just be a tuple, club name and number.
+  """Contains a bridge club description
+
+  Attributes:
+    name: String-based club name from the game file
+    number: ACBL-assigned club number, unique within ACBL
+
+  As such, the club number is considered to be a key, and club
+  objects with the same number are the same club.
   """
 
   def __init__(self,name,number):

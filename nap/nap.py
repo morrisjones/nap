@@ -1,6 +1,8 @@
 """Generate reports for the NAP district playoffs.
 
 Package methods:
+    main: Called from a command-line script, passed the working directory of
+        the script and an array of arguments. Returns reports as strings.
 
 Classes:
     Nap: Methods to generate reports, and contains games, players, and qualdates

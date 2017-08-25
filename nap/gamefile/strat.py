@@ -1,6 +1,10 @@
-#!/usr/bin/python
-
 class Strat(object):
+  """Represents a strat from a game event
+
+  Attributes:
+    max_mp: Max masterpoints for this strat, 0 = unlimited
+    letter: Letter mapping to standard NAP strats, {'A','B','C'}
+  """
 
   def __init__(self,dict):
     self.strat_dict = dict

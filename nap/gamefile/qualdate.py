@@ -1,11 +1,12 @@
-#!/usr/bin/python
-
 from datetime import datetime
 
 class QualDate(object):
-  """This probably could have been a tuple, but it's a useful abstraction
-  of a qualifying game, including the club and date. The club field is 
-  expected to be of type Club, which includes the club number and name.
+  """Descriptor for a player's qualifying event.
+
+  Attributes:
+    club: A Club object, which includes name and number
+    date: A date string, in long form, en_us formatted
+    ptime: A python datetime object, more useful for sorting
   """
 
   def __init__(self,club,date):

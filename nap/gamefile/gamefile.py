@@ -1,13 +1,16 @@
-
 import json
 from event import Event
 from qualdate import QualDate
 from gamefile_exception import GamefileException
 
 class Gamefile(object):
-  """Represents a gamefile imported using ACBLgamedump.pm from JSON
+  """Top of an object tree that represents and ACBLscore game file
 
-  Only has the attributes we're interested in for the NAP qualifier games
+  Attributes:
+    gamefiledict: The raw JSON dictionary provided by ACBLgamedump
+    events: Array of Event objects. In practice our game files only include
+        a single Event, so it has to be referenced as events[0].
+
   """
 
   def __init__(self,json):
@@ -21,9 +24,16 @@ class Gamefile(object):
       self.events.append(event)
 
   def __key(self):
-    return (self.get_club().number, self.get_game_date(), self.get_club_session_num())
+    """Key to a unique game file.
+    
+    A unique game is identified by the club number, game date, and club 
+    session number.
+    """
+    return (self.get_club().number, self.get_game_date(), 
+        self.get_club_session_num())
     
   def get_key(self):
+    """Public access to the game file key"""
     return self.__key()
 
   def __str__(self):
@@ -31,6 +41,11 @@ class Gamefile(object):
     return fmt.format(self.get_club().name, self.get_club().number, self.get_game_date())
 
   def __cmp__(self,other):
+    """Natural ordering for game files
+    
+    Sort by game date first, then by club session number. The session number will
+    distinguish between games played on the same date.
+    """
     me = self.get_qualdate().ptime
     him = other.get_qualdate().ptime
     if me > him:
@@ -50,39 +65,50 @@ class Gamefile(object):
     return gamefiledict
 
   def pretty(self):
+    """A debugging tool, pretty-prints the defining game file dict as JSON"""
     print json.dumps(self.gamefiledict, sort_keys=True, indent=2, separators=(',', ': '))
 
   def get_club(self):
+    """Return a Club object connected to this Gamefile"""
     return self.events[0].details[0].club
 
   def get_strats(self):
+    """Return the array of Strat objects for this game's event"""
     return self.events[0].details[0].strats
 
   def get_game_date(self):
+    """Helper to return the game date from EventDetails"""
     return self.events[0].details[0].date
 
   def get_club_session_num(self):
+    """Club session number refers to day of week and time of day"""
     return self.events[0].details[0].club_session_num
 
   def get_event_details(self):
+    """Returns the EventDetails object related to this game"""
     return self.events[0].details[0]
 
   def get_club_num(self):
+    """The unique club number for this bridge club."""
     return self.get_club().number
 
   def get_qualdate(self):
+    """The club and date of this game, for reporting player qualifiers."""
     return QualDate(self.get_club(),self.get_game_date())
 
   def get_rating(self):
+    """The game rating string from EventDetails"""
     return self.events[0].details[0].rating
 
   def table_count(self):
+    """Returns the table count for all sections of this game"""
     entries = 0.0
     for section in self.events[0].details[0].sections:
       entries  += section.table_count()
     return entries
 
   def get_sections(self):
+    """Get the Sections array for this game"""
     sections = []
     for event in self.events:
       for detail in event.details:
@@ -91,6 +117,11 @@ class Gamefile(object):
     return sections
 
   def qualified_players(self,flight):
+    """List of qualified players for a given flight
+
+    Args:
+      flight: One character from {'a', 'b', 'c'} that indicates the flight
+    """
     qp = []
     for section in self.get_sections():
       for player in section.players:
@@ -99,6 +130,7 @@ class Gamefile(object):
     return qp
 
   def all_players(self):
+    """Get all individual Player objects, qualifiers and not"""
     plrs = []
     for section in self.get_sections():
       for player in section.players:
