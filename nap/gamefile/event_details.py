@@ -42,6 +42,7 @@ class EventDetails(object):
       'b' : 0,
       'c' : 0,
       'd' : 0,
+      'e' : 0,
     }
     for section in self.sections:
       for seat in section.entries.keys():

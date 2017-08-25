@@ -27,26 +27,10 @@ __cwd__ = os.path.dirname(os.path.realpath(__file__))
 #
 class Nap(object):
 
-  #
-  # The set of persistent Game objects
-  #
-  games = {}
-
-  #
-  # Persistent set of Player objects
-  #
-  players = set()
-
-  #
-  # Qualdates tie players to games
-  #
-  qualdates = {}
-
-  # INIT
   def __init__(self):
-    self.games.clear()
-    self.players.clear()
-    self.qualdates.clear()
+    self.games = {}
+    self.players = set()
+    self.qualdates = {}
 
   #
   # Parse one game
@@ -224,6 +208,8 @@ def main(scriptdir,arglist):
       version="%(prog)s ("+__version__+")")
   parser.add_argument('-d', '--dupe', action="store_true",
       help="Generate an interesting report of player duplicates")
+  parser.add_argument('--totals', action="store_true",
+      help="Diagnostic report of flight totals")
   args = parser.parse_args(arglist)
 
   #
@@ -250,10 +236,13 @@ def main(scriptdir,arglist):
   report = ""
 
   # Test report, totals in strats
-  for k in nap.games.keys():
-    game = nap.games[k]
-    details = game.get_event_details()
-    totals = details.compute_total_pairs()
+  if args.totals:
+    for k in nap.games.keys():
+      game = nap.games[k]
+      details = game.get_event_details()
+      totals = details.compute_total_pairs()
+      print game
+      print totals
 
   #
   # Club report
