@@ -237,9 +237,23 @@ class Nap(object):
           report += os.linesep
     return report
 
-  #
-  # summary report
-  #
+  def flight_players(self,flight):
+    """Return a nice sorted array of Players with Qualdates
+
+    This is intended to be rendered by the webapp with appropriate formatting,
+    like a nice table, with odd/even highlighting or such.
+
+    Assumes players have been loaded.
+    """
+    flight_players = []
+    for p in self.single_flight(flight):
+      record = {}
+      record['player_name'] = p.terse()
+      record['player_number'] = p.pnum
+      record['qualdates'] = sorted(self.qualdates[p])
+      flight_players.append(record)
+    return flight_players
+
   def summary_report(self):
     """Report all qualified players with markers for their flight.
 
@@ -299,6 +313,8 @@ def main(scriptdir,arglist):
       help="Generate an interesting report of player duplicates")
   parser.add_argument('--totals', action="store_true",
       help="Diagnostic report of flight totals")
+  parser.add_argument('--test', action="store_true",
+      help="For developmental test reports")
   args = parser.parse_args(arglist)
 
   # Encapsulate the games, players, and qualdates
@@ -319,6 +335,17 @@ def main(scriptdir,arglist):
     nap.load_games(gamefile_tree)
 
   report = ""
+
+  # Here I'm going to test various algorithms for data reduction
+  if args.test:
+    report = ""
+    nap.load_players()
+    flight_players = nap.flight_players('a')
+    for fp in flight_players:
+      report += ''.join('{}: {}'.format(key, val) for key, val in fp.items())
+      report += os.linesep
+    return report
+    
 
   # (NEW in testing) Show number of pairs in each strat
   # (Note that higher strats should include the number of pairs from
