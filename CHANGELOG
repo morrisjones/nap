@@ -1,3 +1,7 @@
+0.3.0
+
+* Add reports for individual clubs, games, and players
+
 0.2.3
 
 * Support the webapp with the nap.flight_players() method so it can
