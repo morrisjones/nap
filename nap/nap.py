@@ -184,6 +184,7 @@ class Nap(object):
         'club_name': game.get_club().name,
         'game_date': game.get_game_date(),
         'session': game.get_club_session_num(),
+        'session_name': Gamefile.session_string[game.get_club_session_num()],
         'tables': game.table_count(),
         'game': game,
       }
@@ -219,7 +220,7 @@ class Nap(object):
           game['club_number'], 
           game['club_name'], 
           game['game_date'],
-          Gamefile.session_string[game['session']], 
+          game['session_name'],
           game['tables'],
           )
       report += os.linesep
