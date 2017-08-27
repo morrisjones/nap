@@ -188,7 +188,7 @@ class Nap(object):
         'tables': game.table_count(),
         'game': game,
       }
-      if game_index:
+      if game_index is not None:
         if game_index == idx:
           resultlist.append(result)
       elif club_number:
@@ -339,7 +339,6 @@ class Nap(object):
       if qp.is_qual('c'):
         flight_totals['c'] += 1
     return flight_totals
-
 
   def player_summary_report(self,players=None):
     if not players:
