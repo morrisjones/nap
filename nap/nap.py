@@ -323,12 +323,9 @@ class Nap(object):
 
     return report
 
-  def player_summary_report(self,players=None):
+  def flight_totals(self,players=None):
     if not players:
       players = self.players
-    report = self.summary_report(players_list=players)
-    report += os.linesep
-
     flight_totals = {
       'a': 0,
       'b': 0,
@@ -341,6 +338,16 @@ class Nap(object):
         flight_totals['b'] += 1
       if qp.is_qual('c'):
         flight_totals['c'] += 1
+    return flight_totals
+
+
+  def player_summary_report(self,players=None):
+    if not players:
+      players = self.players
+    report = self.summary_report(players_list=players)
+    report += os.linesep
+
+    flight_totals = self.flight_totals()
 
     report += "Qualified players" + os.linesep
     report += "Total: %s" % len(players)
