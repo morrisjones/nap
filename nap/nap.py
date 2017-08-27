@@ -19,6 +19,7 @@ Morris "Mojo" Jones, mojo@bridgemojo.com
 
 import sys
 from gamefile import Gamefile, GamefileException
+from gamefile.player import canonical_pnum
 from subprocess import check_call
 from tempfile import mkstemp
 import os
@@ -32,32 +33,6 @@ __cwd__ = os.path.dirname(os.path.realpath(__file__))
 class Nap(object):
   """Encapsulates games, players, and qualdates for use in reports
   """
-
-  # Mapping between club session numbers and day/time
-  session_string = {
-    1: 'Mon AM',
-    2: 'Mon Aft',
-    3: 'Mon Eve',
-    4: 'Tue AM',
-    5: 'Tue Aft',
-    6: 'Tue Eve',
-    7: 'Wed AM',
-    8: 'Wed Aft',
-    9: 'Wed Eve',
-    10: 'Thu AM',
-    11: 'Thu Aft',
-    12: 'Thu Eve',
-    13: 'Fri AM',
-    14: 'Fri Aft',
-    15: 'Fri Eve',
-    16: 'Sat AM',
-    17: 'Sat Aft',
-    18: 'Sat Eve',
-    19: 'Sun AM',
-    20: 'Sun Aft',
-    21: 'Sun Eve',
-    22: '(Other)',
-  }
 
   def __init__(self):
     self.games = {}
@@ -191,27 +166,69 @@ class Nap(object):
         flight_players.append(p)
     return sorted(flight_players)
 
-  def club_games(self):
+  def club_games(self,club_number=None,game_index=None):
+    """ Return structured data for a sorted list of club games
+
+    This will be suitable for the club_games_report and for the webapp
+
+    Args:
+      club_number: if specified will select games at a particular club
+      game_index: if specified will select an individual game by its index
+    """
+    all_games = self.get_game_list()
+    resultlist = []
+    for idx, game in enumerate(all_games):
+      result = {
+        'game_index': idx,
+        'club_number': game.get_club().number,
+        'club_name': game.get_club().name,
+        'game_date': game.get_game_date(),
+        'session': game.get_club_session_num(),
+        'tables': game.table_count(),
+        'game': game,
+      }
+      if game_index:
+        if game_index == idx:
+          resultlist.append(result)
+      elif club_number:
+        if club_number == result['club_number']:
+          resultlist.append(result)
+      else:
+        resultlist.append(result)
+    return resultlist
+
+  def club_games_report(self,game_index=None,club_number=None):
     """Report club games in the data set.
 
     ASCII formatted for fixed-pitch (<pre>) print out.
 
-    Args: none
+    Args:
+      game_index: Index number for one particular game
+      club_number: Club number for all games related to a club
+
     Returns: report string
     """
     report = ""
-    fmt = "{:8} {:30} {:17} {:<8} {:>5}"
-    report += fmt.format("Club No.","Club Name","Game Date","Session","Tables")
+    fmt = "{:>5} {:8} {:30} {:17} {:<8} {:>5}"
+    report += fmt.format("Index","Club No.","Club Name","Game Date","Session","Tables")
     report += os.linesep
-    for game in self.get_game_list():
-      club = game.get_club()
-      report += fmt.format(club.number, 
-                           club.name, 
-                           game.get_game_date(),
-                           Nap.session_string[game.get_club_session_num()], 
-                           game.table_count()
-                          )
+    club_game_list = self.club_games(game_index=game_index,club_number=club_number)
+    table_count = 0.0
+    for idx, game in enumerate(club_game_list):
+      report += fmt.format(game['game_index'] + 1,
+          game['club_number'], 
+          game['club_name'], 
+          game['game_date'],
+          Gamefile.session_string[game['session']], 
+          game['tables'],
+          )
       report += os.linesep
+      table_count += game['tables']
+    report += os.linesep
+    report += "Total games: %s" % len(club_game_list)
+    report += os.linesep
+    report += "Total tables: %s" % table_count
+    report += os.linesep
     return report
 
   def flight_report(self,flight,verbose=False):
@@ -254,25 +271,136 @@ class Nap(object):
       flight_players.append(record)
     return flight_players
 
-  def summary_report(self):
+  def summary_report(self,players_list=None):
     """Report all qualified players with markers for their flight.
 
-    Args: none
+    Args:
+      players_list: If provided, use this list of players instead of the 
+          whole list from the nap object
     Returns: report string
     """
+    if not players_list:
+      players_list = self.players
     report = ""
     report += os.linesep + "Summary of NAP Qualifiers" + os.linesep
     report += os.linesep
     fmt = "{:8} {:30} {:^4} {:^4} {:^4}"
     report += fmt.format("Player#","Name","FltA","FltB","FltC")
     report += os.linesep
-    for p in sorted(self.players):
+    for p in sorted(players_list):
       flta = 'Q' if p.is_qual('a') else ' '
       fltb = 'Q' if p.is_qual('b') else ' '
       fltc = 'Q' if p.is_qual('c') else ' '
       report += fmt.format(p.pnum,p.terse(),flta,fltb,fltc)
       report += os.linesep
     return report
+
+  def players_from_game(self,game):
+    my_player_set = set()
+    for flight in ['a','b','c']:
+      my_player_set.update(game.qualified_players(flight))
+    return my_player_set
+
+  def club_report(self,club_num):
+    """Select for a particular club, report games and players
+    """
+    report = "Club report for club %s" % club_num
+    report += os.linesep
+
+    report += self.club_games_report(club_number=club_num)
+    report += os.linesep
+
+    my_games = self.club_games(club_number=club_num)
+    report += "Games from club: %s" % len(my_games)
+    report += os.linesep
+
+    my_player_set = set()
+    for g in my_games:
+      my_player_set.update(self.players_from_game(g['game']))
+
+    report += self.player_summary_report(my_player_set)
+
+    return report
+
+  def player_summary_report(self,players=None):
+    if not players:
+      players = self.players
+    report = self.summary_report(players_list=players)
+    report += os.linesep
+
+    flight_totals = {
+      'a': 0,
+      'b': 0,
+      'c': 0,
+    }
+    for qp in players:
+      if qp.is_qual('a'):
+        flight_totals['a'] += 1
+      if qp.is_qual('b'):
+        flight_totals['b'] += 1
+      if qp.is_qual('c'):
+        flight_totals['c'] += 1
+
+    report += "Qualified players" + os.linesep
+    report += "Total: %s" % len(players)
+    report += os.linesep
+    report += "  Flight A: %s" % flight_totals['a']
+    report += os.linesep
+    report += "  Flight B: %s" % flight_totals['b']
+    report += os.linesep
+    report += "  Flight C: %s" % flight_totals['c']
+    report += os.linesep
+    return report
+
+  def game_report(self,gameidx):
+    """Produce a game report
+
+    Args:
+      gameidx: one-based index into games list
+    """
+    gamelist = self.get_game_list()
+    game = gamelist[int(gameidx)-1]
+    report = "Report for single game" + os.linesep
+    report += "%s" % game
+    report += os.linesep
+
+    my_player_set = set()
+    my_player_set.update(self.players_from_game(game))
+
+    report += self.player_summary_report(my_player_set)
+
+    return report
+
+  def find_player(self,player_number):
+    player_key = canonical_pnum(player_number)
+    for p in self.players:
+      if player_key == p.canon_pnum:
+        return p
+    return None
+
+  def player_report(self,player_number):
+    report = ""
+    player = self.find_player(player_number)
+    if not player:
+      report += "Not found in qualified player list"
+      return report
+    report += "%s" % player
+    report += os.linesep + "Qualification flights: "
+    if player.is_qual('a'):
+      report += "A "
+    if player.is_qual('b'):
+      report += "B "
+    if player.is_qual('c'):
+      report += "C"
+    report += os.linesep
+    report += "Played in qualifier games:" + os.linesep
+    for qd in self.qualdates[player]:
+      report += "   %s" % qd
+      report += os.linesep
+    return report
+
+# End of Nap object
+
 
 def main(scriptdir,arglist):
   """Command line oriented report generator
@@ -298,8 +426,14 @@ def main(scriptdir,arglist):
       help="gamefile file name(s)", nargs='*')
   parser.add_argument('-t', '--tree', default="./gamefiles",
       help="top directory of a tree of ACBLScore game files (default=./gamefiles)")
-  parser.add_argument('-c', '--clubs', action="store_true", 
+  parser.add_argument('-c', '--clubgames', action="store_true", default=[],
       help="Show info for clubs and games")
+  parser.add_argument('-C', '--club', action="append", default=[],
+      help="Report for an individual club, by ACBL club no.")
+  parser.add_argument('-g', '--game', action="append", default=[],
+      help="Report for an individual game")
+  parser.add_argument('-p', '--player', action="append", default=[],
+      help="Report for an individual player, by player number")
   parser.add_argument('-f', '--flight', action="append", default=[], 
       choices=("a","b","c"),
       help="Select A B or C to report qualifying players")
@@ -334,18 +468,17 @@ def main(scriptdir,arglist):
 
     nap.load_games(gamefile_tree)
 
+  nap.load_players()
   report = ""
 
   # Here I'm going to test various algorithms for data reduction
   if args.test:
     report = ""
-    nap.load_players()
     flight_players = nap.flight_players('a')
     for fp in flight_players:
       report += ''.join('{}: {}'.format(key, val) for key, val in fp.items())
       report += os.linesep
     return report
-    
 
   # (NEW in testing) Show number of pairs in each strat
   # (Note that higher strats should include the number of pairs from
@@ -358,15 +491,28 @@ def main(scriptdir,arglist):
       print game
       print totals
 
-  # Club report
+  # Club games report
   # List all clubs and game dates in the data set
-  if args.clubs:
-    report += nap.club_games()
+  # Print an index number useful for displaying an individual game result
+  if args.clubgames:
+    report += nap.club_games_report()
+
+  # Club report
+  for club in args.club:
+    report += nap.club_report(club)
+
+  # Game report
+  for gameidx in args.game:
+    report += nap.game_report(gameidx)
+
+  # Player report
+  for pnum in args.player:
+    report += nap.player_report(pnum)
+    report += os.linesep
 
   # Flight report
   # This is the report for individual flight qualifiers. If multiple flights are
   # specified on the command line, each report will be generated
-  nap.load_players()
   for flight in args.flight:
     report += nap.flight_report(flight,args.verbose)
 
@@ -374,7 +520,7 @@ def main(scriptdir,arglist):
   # This report is a summary of all players and qualifying flights, emulating the
   # report from ACBLscore
   if args.summary:
-    report += nap.summary_report()
+    report += nap.player_summary_report()
 
   # Dupe report
   # This report lists players who appear in multiple game files under slightly

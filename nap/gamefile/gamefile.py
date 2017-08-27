@@ -37,8 +37,9 @@ class Gamefile(object):
     return self.__key()
 
   def __str__(self):
-    fmt = 'Game:\n  Name:   {0}\n  Number: {1}\n  Date:   {2}\n'
-    return fmt.format(self.get_club().name, self.get_club().number, self.get_game_date())
+    fmt = "{:8} {:30} {:17} {:<8} {:>5}"
+    return fmt.format(self.get_club().number, self.get_club().name, self.get_game_date(),
+        self.session_string[self.get_club_session_num()], self.table_count())
 
   def __cmp__(self,other):
     """Natural ordering for game files
@@ -136,4 +137,30 @@ class Gamefile(object):
       for player in section.players:
         plrs.append(player)
     return plrs
+
+  # Mapping between club session numbers and day/time
+  session_string = {
+    1: 'Mon AM',
+    2: 'Mon Aft',
+    3: 'Mon Eve',
+    4: 'Tue AM',
+    5: 'Tue Aft',
+    6: 'Tue Eve',
+    7: 'Wed AM',
+    8: 'Wed Aft',
+    9: 'Wed Eve',
+    10: 'Thu AM',
+    11: 'Thu Aft',
+    12: 'Thu Eve',
+    13: 'Fri AM',
+    14: 'Fri Aft',
+    15: 'Fri Eve',
+    16: 'Sat AM',
+    17: 'Sat Aft',
+    18: 'Sat Eve',
+    19: 'Sun AM',
+    20: 'Sun Aft',
+    21: 'Sun Eve',
+    22: '(Other)',
+  }
 
