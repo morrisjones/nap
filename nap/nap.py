@@ -184,10 +184,11 @@ class Nap(object):
         'club_name': game.get_club().name,
         'game_date': game.get_game_date(),
         'session': game.get_club_session_num(),
+        'session_name': Gamefile.session_string[game.get_club_session_num()],
         'tables': game.table_count(),
         'game': game,
       }
-      if game_index:
+      if game_index is not None:
         if game_index == idx:
           resultlist.append(result)
       elif club_number:
@@ -219,7 +220,7 @@ class Nap(object):
           game['club_number'], 
           game['club_name'], 
           game['game_date'],
-          Gamefile.session_string[game['session']], 
+          game['session_name'],
           game['tables'],
           )
       report += os.linesep
@@ -322,12 +323,9 @@ class Nap(object):
 
     return report
 
-  def player_summary_report(self,players=None):
+  def flight_totals(self,players=None):
     if not players:
       players = self.players
-    report = self.summary_report(players_list=players)
-    report += os.linesep
-
     flight_totals = {
       'a': 0,
       'b': 0,
@@ -340,6 +338,15 @@ class Nap(object):
         flight_totals['b'] += 1
       if qp.is_qual('c'):
         flight_totals['c'] += 1
+    return flight_totals
+
+  def player_summary_report(self,players=None):
+    if not players:
+      players = self.players
+    report = self.summary_report(players_list=players)
+    report += os.linesep
+
+    flight_totals = self.flight_totals()
 
     report += "Qualified players" + os.linesep
     report += "Total: %s" % len(players)
