@@ -86,7 +86,7 @@ class Nap(object):
 
     rating = game.get_rating()
     if not rating.startswith('NAP'):
-      raise GamefileExcpetion("Not NAP game: " + rating)
+      raise GamefileException("Not NAP game: " + rating)
     return game
 
   def load_game(self,gamefile):

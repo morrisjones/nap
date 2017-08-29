@@ -13,12 +13,6 @@ his ACBLscore gamefile parsing software.
 This software is released under the GNU General Public License GPLv3
 See: http://www.gnu.org/licenses/gpl.html for full license.
 
-TODO list:
-
-* New report: Individual club
-* New report: Individual game
-* New report: Individual player
-
 HELP output, ./qual -h
 
     usage: qual [-h] [-t TREE] [-c] [-C CLUB] [-g GAME] [-p PLAYER] [-f {a,b,c}]
@@ -47,4 +41,3 @@ HELP output, ./qual -h
       -d, --dupe            Generate an interesting report of player duplicates
       --totals              Diagnostic report of flight totals
       --test                For developmental test reports
-
