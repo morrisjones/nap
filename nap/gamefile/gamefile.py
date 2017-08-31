@@ -1,4 +1,7 @@
 import json
+import string
+import os
+import re
 from event import Event
 from qualdate import QualDate
 from gamefile_exception import GamefileException
@@ -13,15 +16,94 @@ class Gamefile(object):
 
   """
 
-  def __init__(self,json):
-    try:
-      self.gamefiledict = self.parse(json)
-    except Exception, e:
-      raise GamefileException(e)
+  def __init__(self,filename,is_csv=False):
+    if is_csv:
+      try:
+        self.parse_csv(filename)
+      except GamefileException:
+        raise
+      # except Exception, e:
+      #   raise GamefileException(e)
+      return
+    else:
+      try:
+        self.gamefiledict = self.parse(filename)
+      except Exception, e:
+        raise GamefileException(e)
+      self.events = []
+      for e in self.gamefiledict:
+        event = Event(e)
+        self.events.append(event)
+
+  def parse_csv(self,pathname):
+    """Parse a CSV file found in the gamefile_tree
+
+    These tend to have a very specific filename format that we can use to deduce the
+    club number and club name. Missing things include the game date, table count, and
+    many other things. We'll have to make do.
+
+    :param pathname: Full path name to the CSV file
+    :return: None
+    """
+    print "CSV file found"
+    print "pathname: %s" % pathname
+    filename = string.split(pathname, os.sep)[-1]
+    print "filename: %s" % filename
+    clubname = string.split(pathname, os.sep)[-2]
+    print "clubname: %s" % clubname
+    pattern = re.compile("NAOP (\d+)-(\d+)")
+    match = pattern.match(filename)
+    club_num = match.group(1)
+    print "club_num: %s" % club_num
+    game_year = match.group(2)
+    print "game_year: %s" % game_year
+
+    club_name_split = re.split('-',clubname)
+    new_club_name = []
+    for w in club_name_split:
+      new_club_name.append(w[0].upper() + w[1:])
+    club_name = " ".join(new_club_name)
+    print club_name
+
+    game_dict = []
+    event_dict = {
+      'decode_format_version': 'not_relevant',
+      'filename': pathname,
+      'creation_timestamp': os.path.getmtime(pathname),
+      'event': []
+    }
+    game_dict.append(event_dict)
+    event_details_dict = {
+      'club': club_name,
+      'club_num': club_num,
+      'date': game_year,
+      'club_session_num': 22,
+      'rating': 'NAP Club level',
+      'strat': [{
+        'max_mp': '0',
+        'letter': 'A',
+      },{
+        'max_mp': '2500',
+        'letter': 'B',
+      },{
+        'max_mp': 'NLM',
+        'letter': 'C',
+      }],
+      'section': {
+        'A': {
+          '1N': {
+
+          }
+        }
+      },
+    }
+    event_dict['event'].append(event_details_dict)
     self.events = []
-    for e in self.gamefiledict:
-      event = Event(e)
-      self.events.append(event)
+    self.events.append(Event(event_dict))
+
+    # TODO populate the section array with players from the CSV file
+
+    return
 
   def __key(self):
     """Key to a unique game file.
