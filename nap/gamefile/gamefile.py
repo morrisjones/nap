@@ -2,6 +2,7 @@ import json
 import string
 import os
 import re
+import csv
 from event import Event
 from qualdate import QualDate
 from gamefile_exception import GamefileException
@@ -45,25 +46,18 @@ class Gamefile(object):
     :param pathname: Full path name to the CSV file
     :return: None
     """
-    print "CSV file found"
-    print "pathname: %s" % pathname
     filename = string.split(pathname, os.sep)[-1]
-    print "filename: %s" % filename
     clubname = string.split(pathname, os.sep)[-2]
-    print "clubname: %s" % clubname
     pattern = re.compile("NAOP (\d+)-(\d+)")
     match = pattern.match(filename)
     club_num = match.group(1)
-    print "club_num: %s" % club_num
     game_year = match.group(2)
-    print "game_year: %s" % game_year
 
     club_name_split = re.split('-',clubname)
     new_club_name = []
     for w in club_name_split:
       new_club_name.append(w[0].upper() + w[1:])
     club_name = " ".join(new_club_name)
-    print club_name
 
     game_dict = []
     event_dict = {
@@ -76,7 +70,7 @@ class Gamefile(object):
     event_details_dict = {
       'club': club_name,
       'club_num': club_num,
-      'date': game_year,
+      'date': "August 31, %s" % game_year,
       'club_session_num': 22,
       'rating': 'NAP Club level',
       'strat': [{
@@ -90,18 +84,73 @@ class Gamefile(object):
         'letter': 'C',
       }],
       'section': {
-        'A': {
-          '1N': {
-
-          }
-        }
+        'A': {}
       },
     }
     event_dict['event'].append(event_details_dict)
+
+    # Read in the CSV file and build a list of raw_player data
+    # the qual_map value will be used to match up players with
+    # pseudo-partners to generate section entry pairs
+    raw_players = []
+    with open(pathname, 'r') as csvfile:
+      rsr = csv.reader(csvfile)
+      for row in rsr:
+        a_flight = bool(re.match('^\dNA$',row[3]))
+        b_flight = bool(re.match('^\dNB$',row[4]))
+        c_flight = bool(re.match('^\dNC$',row[5]))
+        qual_map = 0
+        if a_flight:
+          qual_map += 4
+        if b_flight:
+          qual_map += 2
+        if c_flight:
+          qual_map += 1
+        player = {
+          'pnum': row[0],
+          'fname': row[1],
+          'lname': row[2],
+          'a_flight': a_flight,
+          'b_flight': b_flight,
+          'c_flight': c_flight,
+          'qual_map': qual_map,
+        }
+        raw_players.append(player)
+
+    # Build a pseudo-section with pseudo-partnerships
+    section = {}
+    entry = {}
+    section['entry'] = entry
+    for seat in self.seats:
+      entry[seat] = {}
+      entry[seat]['player'] = []
+      entry[seat]['rank'] = []
+      entry[seat]['strat_num'] = 3
+      player_a = raw_players.pop(0)
+      rank_a = {
+        'qual_flag': 1 if player_a['a_flight'] else 0,
+      }
+      rank_b = {
+        'qual_flag': 1 if player_a['b_flight'] else 0,
+      }
+      rank_c = {
+        'qual_flag': 1 if player_a['c_flight'] else 0,
+      }
+      entry[seat]['rank'].extend([rank_a, rank_b, rank_c])
+      for idx, p in enumerate(raw_players):
+        if p['qual_map'] == player_a['qual_map']:
+          player_b = p
+          del raw_players[idx]
+          break
+      entry[seat]['player'].append(player_a)
+      entry[seat]['player'].append(player_b)
+      if not raw_players:
+        break
+
+    event_details_dict['section']['A'] = section
+
     self.events = []
     self.events.append(Event(event_dict))
-
-    # TODO populate the section array with players from the CSV file
 
     return
 
@@ -246,3 +295,9 @@ class Gamefile(object):
     22: '(Other)',
   }
 
+  seats = [
+    '1N', '1E', '2N', '2E', '3N', '3E', '4N', '4E', '5N', '5E',
+    '6N', '6E', '7N', '7E', '8N', '8E', '9N', '9E', '10N','10E',
+    '11N', '11E', '12N', '12E', '13N', '13E', '14N', '14E', '15N', '15E',
+    '16N', '16E', '17N', '17E', '18N', '18E', '19N', '19E', '20N', '20E',
+  ]
