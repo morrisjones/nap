@@ -7,5 +7,6 @@ setup(name='nap',
       version=nap.__version__,
       packages=find_packages(),
       package_data={'nap': ['ACBLgame*']},
+      install_requires=['python-memcached'],
       )
 

@@ -1,3 +1,10 @@
+0.5.0
+
+* Adding support for a running memcached instance, connect on env var MEMCACHED
+  Storing gamefile dictionaries in memcache to avoid reparsing game files
+* Added session name to the qualifying game description
+* Other general refactoring
+
 0.4.0
 
 * Add support for ACBLscore CSV qualifier lists
