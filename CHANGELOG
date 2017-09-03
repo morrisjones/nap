@@ -1,3 +1,7 @@
+0.5.1
+
+* Add memcache for web UI club list
+
 0.5.0
 
 * Adding support for a running memcached instance, connect on env var MEMCACHED

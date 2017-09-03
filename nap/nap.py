@@ -111,6 +111,7 @@ class Nap(object):
     # Save the game file dict to memcache
     if self.mc:
       self.mc.set(urllib.quote(gamefile), game.gamefiledict)
+      self.mc.delete('CLUBS')
     return game
 
   def load_game(self,gamefile):
@@ -435,11 +436,17 @@ class Nap(object):
 
     :return: dict
     """
+    if self.mc:
+      clubs = self.mc.get('CLUBS')
+      if clubs:
+        return clubs
     clubs = {}
     for key in self.games:
       g = self.games[key]
       club = g.get_club()
       clubs[club.number] = club.name
+    if self.mc:
+      self.mc.set('CLUBS',clubs)
     return clubs
 
 # End of Nap object
