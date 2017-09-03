@@ -6,6 +6,7 @@ import csv
 from event import Event
 from qualdate import QualDate
 from gamefile_exception import GamefileException
+from reference import GFUtils
 
 class Gamefile(object):
   """Top of an object tree that represents and ACBLscore game file
@@ -17,24 +18,35 @@ class Gamefile(object):
 
   """
 
-  def __init__(self,filename,is_csv=False):
-    if is_csv:
-      try:
-        self.parse_csv(filename)
-      except GamefileException:
-        raise
-      # except Exception, e:
-      #   raise GamefileException(e)
-      return
-    else:
-      try:
-        self.gamefiledict = self.parse(filename)
-      except Exception, e:
-        raise GamefileException(e)
-      self.events = []
-      for e in self.gamefiledict:
-        event = Event(e)
-        self.events.append(event)
+  def __init__(self):
+    self.events = []
+    return
+
+  def init_from_dict(self,gamefiledict):
+    self.gamefiledict = gamefiledict
+    for e in self.gamefiledict:
+      event = Event(e)
+      self.events.append(event)
+    return
+
+  def init_from_json(self, jsonstring):
+    try:
+      self.gamefiledict = json.loads(jsonstring)
+    except Exception, e:
+      raise GamefileException(e)
+    for e in self.gamefiledict:
+      event = Event(e)
+      self.events.append(event)
+    return
+
+  def init_from_csv_file(self,csvfile):
+    try:
+      self.parse_csv(csvfile)
+    except GamefileException:
+      raise
+    # except Exception, e:
+    #   raise GamefileException(e)
+    return
 
   def parse_csv(self,pathname):
     """Parse a CSV file found in the gamefile_tree
@@ -61,7 +73,7 @@ class Gamefile(object):
 
     game_dict = []
     event_dict = {
-      'decode_format_version': 'not_relevant',
+      'decode_format_version': 'CSV',
       'filename': pathname,
       'creation_timestamp': os.path.getmtime(pathname),
       'event': []
@@ -121,7 +133,7 @@ class Gamefile(object):
     section = {}
     entry = {}
     section['entry'] = entry
-    for seat in self.seats:
+    for seat in GFUtils.SEATS:
       entry[seat] = {}
       entry[seat]['player'] = []
       entry[seat]['rank'] = []
@@ -149,8 +161,8 @@ class Gamefile(object):
 
     event_details_dict['section']['A'] = section
 
-    self.events = []
     self.events.append(Event(event_dict))
+    self.gamefiledict = game_dict
 
     return
 
@@ -170,7 +182,7 @@ class Gamefile(object):
   def __str__(self):
     fmt = "{:8} {:30} {:17} {:<8} {:>5}"
     return fmt.format(self.get_club().number, self.get_club().name, self.get_game_date(),
-        self.session_string[self.get_club_session_num()], self.table_count())
+        GFUtils.SESSION_STRING[self.get_club_session_num()], self.table_count())
 
   def __cmp__(self,other):
     """Natural ordering for game files
@@ -191,10 +203,6 @@ class Gamefile(object):
         return -1
       else:
         return 0
-
-  def parse(self,jsonstring):
-    gamefiledict = json.loads(jsonstring)
-    return gamefiledict
 
   def pretty(self):
     """A debugging tool, pretty-prints the defining game file dict as JSON"""
@@ -226,7 +234,9 @@ class Gamefile(object):
 
   def get_qualdate(self):
     """The club and date of this game, for reporting player qualifiers."""
-    return QualDate(self.get_club(),self.get_game_date())
+    return QualDate(self.get_club(),
+                    self.get_game_date(),
+                    session=self.get_club_session_num())
 
   def get_rating(self):
     """The game rating string from EventDetails"""
@@ -269,35 +279,3 @@ class Gamefile(object):
         plrs.append(player)
     return plrs
 
-  # Mapping between club session numbers and day/time
-  session_string = {
-    1: 'Mon AM',
-    2: 'Mon Aft',
-    3: 'Mon Eve',
-    4: 'Tue AM',
-    5: 'Tue Aft',
-    6: 'Tue Eve',
-    7: 'Wed AM',
-    8: 'Wed Aft',
-    9: 'Wed Eve',
-    10: 'Thu AM',
-    11: 'Thu Aft',
-    12: 'Thu Eve',
-    13: 'Fri AM',
-    14: 'Fri Aft',
-    15: 'Fri Eve',
-    16: 'Sat AM',
-    17: 'Sat Aft',
-    18: 'Sat Eve',
-    19: 'Sun AM',
-    20: 'Sun Aft',
-    21: 'Sun Eve',
-    22: '(Other)',
-  }
-
-  seats = [
-    '1N', '1E', '2N', '2E', '3N', '3E', '4N', '4E', '5N', '5E',
-    '6N', '6E', '7N', '7E', '8N', '8E', '9N', '9E', '10N','10E',
-    '11N', '11E', '12N', '12E', '13N', '13E', '14N', '14E', '15N', '15E',
-    '16N', '16E', '17N', '17E', '18N', '18E', '19N', '19E', '20N', '20E',
-  ]

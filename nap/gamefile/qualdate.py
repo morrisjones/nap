@@ -1,4 +1,5 @@
 from datetime import datetime
+from reference import GFUtils
 
 class QualDate(object):
   """Descriptor for a player's qualifying event.
@@ -10,11 +11,12 @@ class QualDate(object):
     ptime: A python datetime object, more useful for sorting
   """
 
-  def __init__(self,club,date):
+  def __init__(self,club,date,session=22):
     self.club = club
     self.date = date
     self.ptime = datetime.strptime(date,"%B %d, %Y")
     self.sdate = self.ptime.strftime("%x")
+    self.session = GFUtils.SESSION_STRING[session]
 
   def __key(self):
     return (self.club,self.date)
@@ -34,5 +36,4 @@ class QualDate(object):
       return 0
 
   def __str__(self):
-    fmt = "{date} {club}"
-    return "{0} {1}".format(self.sdate,self.club)
+    return "{0} {1} {2}".format(self.sdate,self.session,self.club)
