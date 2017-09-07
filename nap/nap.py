@@ -22,7 +22,8 @@ import re
 import os
 import memcache
 import urllib
-from gamefile import Gamefile, GamefileException, GFUtils
+from gamefile import Gamefile, GamefileException, GFUtils, Player
+from prereg import PreReg
 from gamefile.player import canonical_pnum
 from subprocess import check_call, CalledProcessError
 from tempfile import mkstemp
@@ -40,10 +41,15 @@ class Nap(object):
     self.games = {}
     self.players = set()
     self.qualdates = {}
+    self.prereg = {}
     if 'MEMCACHED' in os.environ:
       self.mc = memcache.Client([os.environ['MEMCACHED']],debug=1)
     else:
       self.mc = None
+    for event in ('UF1','UF2'):
+      self.prereg[event] = {}
+      for flight in ('a','b','c'):
+        self.prereg[event][flight] = self.load_prereg(event,flight)
 
   def parse_game(self,gamefile):
     """Convert a raw ACBLscore gamefile into Gamefile object.
@@ -449,6 +455,42 @@ class Nap(object):
       self.mc.set('CLUBS',clubs)
     return clubs
 
+  def save_prereg(self,event,flight):
+    """Persist a prereg object to disk"""
+    if 'UNIT_REGISTRATION' in os.environ:
+      path = os.environ['UNIT_REGISTRATION']
+    else:
+      path = join(__cwd__,"prereg")
+    filename = "%s-%s.json" % (event,flight)
+    pathname = join(path,filename)
+    prereg = self.prereg[event][flight]
+    json = prereg.as_json()
+    with open(pathname,'w') as file:
+      file.write(json)
+    return
+
+  def load_prereg(self,event,flight):
+    """Bring a prereg object in from disk"""
+    if 'UNIT_REGISTRATION' in os.environ:
+      path = os.environ['UNIT_REGISTRATION']
+    else:
+      path = join(__cwd__,"prereg")
+    filename = "%s-%s.json" % (event,flight)
+    pathname = join(path,filename)
+    prereg = PreReg(event,flight)
+    if os.path.isfile(pathname):
+      with open(pathname,'r') as file:
+        json = file.read()
+      prereg.init_from_json(json)
+    return prereg
+
+  def is_already_registered(self,pnum):
+    for uf in ('UF1','UF2'):
+      for flight in ('a','b','c'):
+        if self.prereg[uf][flight].is_already_registered(pnum):
+          return True
+    return False
+
 # End of Nap object
 
 
@@ -523,12 +565,13 @@ def main(scriptdir,arglist):
 
   # Here I'm going to test various algorithms for data reduction
   if args.test:
-    report = ""
-    flight_players = nap.flight_players('a')
-    for fp in flight_players:
-      report += ''.join('{}: {}'.format(key, val) for key, val in fp.items())
-      report += os.linesep
-    return report
+    entry = 'UF1'
+    flight = 'a'
+    prereg1 = nap.prereg[entry][flight]
+    a = Player('Morris','Jones','Q202249')
+    b = Player('May','Abagi','4649370')
+    prereg1.add_entry(a,b,req_ns=False)
+    nap.save_prereg(entry,flight)
 
   # (NEW in testing) Show number of pairs in each strat
   # (Note that higher strats should include the number of pairs from

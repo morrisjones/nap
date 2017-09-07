@@ -1,3 +1,4 @@
+import json
 from seat import Seat
 from pairentry import PairEntry
 from ..gamefile import Player
@@ -12,7 +13,8 @@ class PreReg(object):
 
   MAX_TABLES = 25
 
-  def __init__(self,flight):
+  def __init__(self,event=None,flight=None):
+    self.event = event
     self.flight = flight
     self.section = {}
     for table_number in range(1,PreReg.MAX_TABLES+1):
@@ -31,9 +33,21 @@ class PreReg(object):
         seat = self.section[table_num][direction]
         if req_ns and not seat.perm_ns:
           continue
-        if seat.pair_entry == None:
+        if seat.pair_entry is None:
           return seat
     raise Exception("Ran out of seats available!")
+
+  def is_already_registered(self,pnum):
+    """Look through all of the registrations for an existing player number"""
+    for table_number in self.section:
+      for direction in (Seat.NS, Seat.EW):
+        seat = self.section[table_number][direction]
+        if seat.pair_entry:
+          if seat.pair_entry.player_a.pnum == pnum:
+            return True
+          if seat.pair_entry.player_b.pnum == pnum:
+            return True
+    return False
 
   def get_section(self):
     section = {}
@@ -59,9 +73,18 @@ class PreReg(object):
               'pnum': seat.pair_entry.player_b.pnum,
             },
             'req_ns': seat.pair_entry.req_ns,
+            'email': seat.pair_entry.email,
           }
           section[table_number][direction]['seat'] = pe
     return section
+
+  def as_json(self):
+    flight = {
+      'flight': self.flight,
+      'event': self.event,
+      'section': self.get_section(),
+    }
+    return json.dumps(flight,sort_keys=True,indent=4,separators=(',',': '))
 
   def add_entry(self,player_a,player_b,req_ns=False):
     seat = self.find_empty_seat(req_ns)
@@ -69,6 +92,8 @@ class PreReg(object):
     return seat
 
   def init_from_dict(self,prereg_dict):
+    self.flight = prereg_dict['flight']
+    self.event = prereg_dict['event']
     for table_num in prereg_dict['section']:
       for direction in (Seat.NS, Seat.EW):
         seat = prereg_dict['section'][table_num][direction]['seat']
@@ -80,6 +105,34 @@ class PreReg(object):
                             seat['player_b']['fname'],
                             seat['player_b']['pnum'])
           req_ns = seat['req_ns']
-          pe = PairEntry(player_a,player_b,req_ns)
+          email = seat['email']
+          pe = PairEntry(player_a,player_b,req_ns=req_ns,email=email)
           self.section[int(table_num)][direction].pair_entry = pe
     return
+
+  def init_from_json(self,json_string):
+    dict = json.loads(json_string)
+    self.init_from_dict(dict)
+    return
+
+  def find_max_table(self):
+    max_table = 1
+    for table_number in range(1,PreReg.MAX_TABLES+1):
+      table = self.section[table_number]
+      for direction in (Seat.NS, Seat.EW):
+        seat = table[direction]
+        if seat.pair_entry:
+          max_table = table_number
+          continue
+    return max_table
+
+  def get_all_players(self):
+    """Returns a set() of Player objects from the entire section"""
+    players = set()
+    for table_number in self.section:
+      table = self.section[table_number]
+      for direction in (Seat.NS, Seat.EW):
+        seat = table[direction]
+        if seat.pair_entry:
+          players.update(seat.pair_entry.player_a,seat.pair_entry.player_b)
+    return players

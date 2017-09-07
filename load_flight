@@ -7,10 +7,11 @@ from nap.prereg import PreReg, PairEntry, Seat
 
 if __name__ == "__main__":
   data = sys.stdin.read();
-  flight = json.loads(data)
-  pr = PreReg(flight['flight'])
-  pr.init_from_dict(flight)
+  pr = PreReg()
+  pr.init_from_json(data)
 
-  print pr.get_section()
+  print pr.as_json()
+
+  print "\n\nMax table: %s" % pr.find_max_table()
 
   sys.exit(0)
