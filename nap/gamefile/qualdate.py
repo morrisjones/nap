@@ -1,5 +1,5 @@
 from datetime import datetime
-from reference import GFUtils
+from gfutils import GFUtils
 
 class QualDate(object):
   """Descriptor for a player's qualifying event.

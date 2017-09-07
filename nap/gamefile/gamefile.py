@@ -6,7 +6,7 @@ import csv
 from event import Event
 from qualdate import QualDate
 from gamefile_exception import GamefileException
-from reference import GFUtils
+from gfutils import GFUtils
 
 class Gamefile(object):
   """Top of an object tree that represents and ACBLscore game file

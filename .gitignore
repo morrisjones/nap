@@ -1,3 +1,4 @@
+.env
 *.pyc
 
 # Here are .gitignore entries from Jetbrains of what to ignore
