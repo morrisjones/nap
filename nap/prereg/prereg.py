@@ -31,7 +31,10 @@ class PreReg(object):
     for table_num in self.section:
       for direction in (Seat.NS, Seat.EW):
         seat = self.section[table_num][direction]
+        # The following could be an XOR but this might be more readable
         if req_ns and not seat.perm_ns:
+          continue
+        elif not req_ns and seat.perm_ns:
           continue
         if seat.pair_entry is None:
           return seat
