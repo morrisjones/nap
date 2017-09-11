@@ -1,3 +1,7 @@
+0.6.3
+
+* Bug fix: pick up a non-NAP game file lacking a rating flag
+
 0.6.2
 
 * Minor bug fix, spaces in upload CSV files

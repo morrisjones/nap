@@ -111,8 +111,11 @@ class Nap(object):
         raise GamefileException(e)
 
       rating = game.get_rating()
-      if not rating.startswith('NAP'):
-        raise GamefileException("Not NAP game: " + rating)
+      if rating:
+        if not rating.startswith('NAP'):
+          raise GamefileException("Not NAP game: " + rating)
+      else:
+        raise GamefileException("No rating for file %s" % gamefile)
 
     # Save the game file dict to memcache
     if self.mc:
