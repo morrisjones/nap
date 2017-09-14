@@ -487,11 +487,16 @@ class Nap(object):
       prereg.init_from_json(json)
     return prereg
 
-  def is_already_registered(self,pnum):
-    for uf in ('UF1','UF2'):
-      for flight in ('a','b','c'):
-        if self.prereg[uf][flight].is_already_registered(pnum):
-          return True
+  def is_already_in_game(self,pnum,game):
+    for flight in ('a','b','c'):
+      if self.prereg[game][flight].is_already_registered(pnum):
+        return True
+    return False
+
+  def is_already_in_flight(self,pnum,flight):
+    for game in ('UF1','UF2'):
+      if self.prereg[game][flight].is_already_registered(pnum):
+        return True
     return False
 
 # End of Nap object
