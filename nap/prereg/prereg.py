@@ -21,8 +21,9 @@ class PreReg(object):
       self.section[table_number] = {}
       for direction in (Seat.NS,Seat.EW):
         seat = Seat(table_number,direction)
-        # Mark the odd tables for permanent NS
-        if bool(table_number & 1) and direction == Seat.NS:
+        # Mark tables 2, 4, and 6 for permanent NS
+        if not bool(table_number & 1) and direction == Seat.NS and \
+            table_number < 7:
           seat.perm_ns = True
         self.section[table_number][direction] = seat
     return
@@ -37,6 +38,14 @@ class PreReg(object):
         elif not req_ns and seat.perm_ns:
           continue
         if seat.pair_entry is None:
+          return seat
+    # We could arrive here because of a lack of permanent N-S seats
+    # If that happens, assign the first available N-S seat and mark it perm_ns
+    if req_ns:
+      for table_num in self.section:
+        seat = self.section[table_num][Seat.NS]
+        if seat.pair_entry is None:
+          seat.perm_ns = True
           return seat
     raise Exception("Ran out of seats available!")
 
