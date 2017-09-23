@@ -267,8 +267,9 @@ class Gamefile(object):
     qp = []
     for section in self.get_sections():
       for player in section.players:
-        if player.is_qual(flight):
-          qp.append(player)
+        if player.pnum != 'dummy':
+          if player.is_qual(flight):
+            qp.append(player)
     return qp
 
   def all_players(self):
