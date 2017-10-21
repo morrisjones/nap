@@ -1,3 +1,8 @@
+0.7.0
+
+* Add some level of support for Unit Final qualifiers to District Final
+  The existing game files for 2017 UF1 do not appear to have the correct "strat" letters.
+
 0.6.6
 
 * Support dummy entries for manual updates

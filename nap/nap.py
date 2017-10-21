@@ -22,6 +22,7 @@ import re
 import os
 import memcache
 import urllib
+import traceback
 from gamefile import Gamefile, GamefileException, GFUtils, Player
 from prereg import PreReg
 from gamefile.player import canonical_pnum
@@ -108,6 +109,7 @@ class Nap(object):
       except GamefileException:
         raise
       except Exception, e:
+        traceback.print_exc()
         raise GamefileException(e)
 
       rating = game.get_rating()

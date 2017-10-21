@@ -17,10 +17,15 @@ class EventDetails(object):
 
   def __init__(self,details_dict):
     self.details_dict = details_dict
-    self.club = Club(details_dict['club'],details_dict['club_num'])
-    self.date = details_dict['date']
-    self.club_session_num = details_dict['club_session_num']
     self.rating = details_dict['rating']
+    if self.rating == "NAP Unit Level":
+      self.club = Club(details_dict['tournament'],
+                       "%s-%s" % (details_dict['sanction'],details_dict['session_num']))
+      self.club_session_num = 22
+    else:
+      self.club = Club(details_dict['club'],details_dict['club_num'])
+      self.club_session_num = details_dict['club_session_num']
+    self.date = details_dict['date']
 
     # Load the strats array
     self.strats = []
@@ -39,6 +44,12 @@ class EventDetails(object):
 
   def map_rank_index_to_strat(self,rank_index):
     strat = self.strats[rank_index]
+    if strat.max_mp == 0:
+      return 'a'
+    elif strat.max_mp == 2500:
+      return 'b'
+    elif strat.max_mp == 500:
+      return 'c'
     return strat.letter.lower()
 
   def compute_total_pairs(self):
