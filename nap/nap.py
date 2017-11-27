@@ -22,6 +22,7 @@ import re
 import os
 import memcache
 import urllib
+import traceback
 from gamefile import Gamefile, GamefileException, GFUtils, Player
 from prereg import PreReg
 from gamefile.player import canonical_pnum
@@ -108,6 +109,7 @@ class Nap(object):
       except GamefileException:
         raise
       except Exception, e:
+        traceback.print_exc()
         raise GamefileException(e)
 
       rating = game.get_rating()
@@ -181,7 +183,12 @@ class Nap(object):
         qd = game.get_qualdate()
         qp = game.qualified_players(flight)
         for p in qp:
-          self.players.add(p)
+          if p in self.players:
+            for p2 in self.players:
+              if p2 == p:
+                p2.set_qual(flight,True)
+          else:
+            self.players.add(p)
           if p not in self.qualdates:
             self.qualdates[p] = set([qd])
           else:

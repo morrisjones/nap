@@ -245,8 +245,10 @@ class Gamefile(object):
   def table_count(self):
     """Returns the table count for all sections of this game"""
     entries = 0.0
-    for section in self.events[0].details[0].sections:
-      entries  += section.table_count()
+    for event in self.events:
+      for detail in event.details:
+        for section in detail.sections:
+          entries += section.table_count()
     return entries
 
   def get_sections(self):
