@@ -60,7 +60,7 @@ class Gamefile(object):
     """
     filename = string.split(pathname, os.sep)[-1]
     clubname = string.split(pathname, os.sep)[-2]
-    pattern = re.compile("NAOP.(\d+)-(\d+)")
+    pattern = re.compile("NAP.(\d+)-(\d+)")
     match = pattern.match(filename)
     club_num = match.group(1)
     game_year = match.group(2)
