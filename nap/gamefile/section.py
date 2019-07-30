@@ -40,11 +40,11 @@ class Section(object):
       ranks = entry['rank']
       for p in players:
         player = Player(p['lname'],p['fname'],p['pnum'])
-        player.set_qual(rank_idx_to_strat[0],ranks[0]['qual_flag'] > 0)
+        player.set_qual(rank_idx_to_strat[0],ranks[0]['qual_flag'] > 0 and ranks[0]['qual_flag'] < 10000)
         if 1 < strat_num:
-          player.set_qual(rank_idx_to_strat[1],ranks[1]['qual_flag'] > 0)
+          player.set_qual(rank_idx_to_strat[1],ranks[1]['qual_flag'] > 0 and ranks[1]['qual_flag'] < 10000)
         if 2 < strat_num:
-          player.set_qual(rank_idx_to_strat[2],ranks[2]['qual_flag'] > 0)
+          player.set_qual(rank_idx_to_strat[2],ranks[2]['qual_flag'] > 0 and ranks[2]['qual_flag'] < 10000)
         self.players.append(player)
 
   def table_count(self):

@@ -19,7 +19,11 @@ class EventDetails(object):
     self.details_dict = details_dict
     self.rating = details_dict['rating']
     if self.rating == "NAP Unit Level":
-      self.club = Club(details_dict['tournament'],
+      if 'tournament' in details_dict.keys():
+        club_name = details_dict['tournament']
+      else:
+        club_name = details_dict['club']
+      self.club = Club(club_name,
                        "%s-%s" % (details_dict['sanction'],details_dict['session_num']))
       self.club_session_num = 22
     else:
